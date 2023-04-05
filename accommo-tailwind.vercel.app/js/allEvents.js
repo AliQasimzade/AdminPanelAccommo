@@ -55,8 +55,6 @@ let findEventById;
 
 function toggleModal(id) {
   findId = id
-
-
   if (id) {
     findEventById = events.find(event => event._id === id)
     if (findEventById) {
@@ -74,9 +72,6 @@ function toggleModal(id) {
   }
   document.getElementById('modal').classList.toggle('hidden')
 }
-
-
-
 
 const updateEvent = async () => {
 
