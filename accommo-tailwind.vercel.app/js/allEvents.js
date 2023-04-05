@@ -1,14 +1,23 @@
-
-let arr = []
+const updateLocationName = document.getElementById('updateLocationName')
+const updateName = document.getElementById('updateName')
+const updateLocationAddress = document.getElementById('updateLocationAddress')
+const updateDescription = document.getElementById('updateDescription')
+const updateStartDate = document.getElementById('updateStartDate')
+const updateEndDate = document.getElementById('updateEndDate')
+const updateEntryPrice = document.getElementById('updateEntryPrice')
+const updateContactInfo = document.getElementById('updateContactInfo')
+const updateDetails = document.getElementById('updateDetails')
+const updateEventBtn = document.getElementById('updateEventBtn')
+let events = []
 const tbody = document.getElementById("tbody")
 
-const getData =  async()=>{
-    let req = await fetch("http://localhost:3001/api/events")
-    let res = await req.json()
-    arr = [...res]
-    arr.forEach(item => {
-        tbody.innerHTML+= 
-        `
+const getData = async () => {
+  let req = await fetch("http://localhost:3001/api/events")
+  let res = await req.json()
+  events = [...res]
+  events.forEach(item => {
+    tbody.innerHTML +=
+      `
         <tr class="align-middle hover:bg-gray-50 dark:hover:bg-background">
         
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3"> ${item.name} </td>
@@ -24,7 +33,7 @@ const getData =  async()=>{
         
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-gray-300 px-6 py-3">
           <div class="flex items-center">
-            <button type="button" onclick="toggleModal()" class="border mr-2 border-gray-200 hover:bg-blue-500 dark:hover:border-blue-500 hover:text-white text-gray-700 dark:text-gray-300 dark:border-gray-800 rounded-full w-8 h-8 flex justify-center items-center">
+            <button type="button" onclick="toggleModal('${item._id}')" class="border mr-2 border-gray-200 hover:bg-blue-500 dark:hover:border-blue-500 hover:text-white text-gray-700 dark:text-gray-300 dark:border-gray-800 rounded-full w-8 h-8 flex justify-center items-center">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14.1767 2.5903C14.964 1.80323 16.2424 1.80323 17.0296 2.5903L17.4107 2.97163C18.1979 3.75885 18.1979 5.03604 17.4107 5.82326L10.4705 12.7603C10.206 13.0279 9.86907 13.1854 9.50065 13.2987L6.64776 13.9568C6.47772 13.9946 6.30138 13.9442 6.17857 13.8214C6.05577 13.6986 6.00538 13.5223 6.04317 13.3522L6.70129 10.4994C6.78631 10.1309 6.97209 9.794 7.23975 9.50116L14.1767 2.5903ZM16.3148 3.30289C15.9212 2.90928 15.2852 2.90928 14.8915 3.30289L14.0476 4.1449L15.8551 5.95236L16.6959 5.10846C17.0895 4.7158 17.0895 4.07783 16.6959 3.68422L16.3148 3.30289ZM7.68374 10.7261L7.20511 12.7949L9.24559 12.3163C9.45657 12.2753 9.62661 12.1809 9.75886 12.0203L15.1435 6.66401L13.336 4.8575L7.9514 10.2411C7.81914 10.3734 7.72468 10.5434 7.68374 10.7261ZM8.54969 3.89299C8.82679 3.89299 9.05351 4.11845 9.05351 4.39681C9.05351 4.67518 8.82679 4.90064 8.54969 4.90064H4.51911C3.68434 4.90064 3.00764 5.57765 3.00764 6.4121V15.4809C3.00764 16.3153 3.68434 16.9924 4.51911 16.9924H13.5879C14.4224 16.9924 15.0994 16.3153 15.0994 15.4809V11.4503C15.0994 11.1732 15.3261 10.9465 15.6032 10.9465C15.8803 10.9465 16.107 11.1732 16.107 11.4503V15.4809C16.107 16.8727 14.9797 18 13.5879 18H4.51911C3.12793 18 2 16.8727 2 15.4809V6.4121C2 5.02092 3.12793 3.89299 4.51911 3.89299H8.54969Z" fill="currentColor" />
               </svg> </button>
@@ -36,14 +45,88 @@ const getData =  async()=>{
         </td>
       </tr>
         `
-    })
-    
+  })
+
 }
-window.addEventListener("load" , getData)
+getData()
+
+let findId;
+let findEventById;
+
+function toggleModal(id) {
+  findId = id
 
 
-function toggleModal() {
-    document.getElementById('modal').classList.toggle('hidden')
+  if (id) {
+    findEventById = events.find(event => event._id === id)
+    if (findEventById) {
+      updateLocationName.value = findEventById.locationName
+      updateName.value = findEventById.name
+      updateLocationAddress.value = findEventById.locationAddress
+      updateDescription.value = findEventById.description
+      updateStartDate.value = findEventById.startDate
+      updateEndDate.value = findEventById.endDate
+      updateEntryPrice.value = findEventById.entryPrice
+      updateContactInfo.value = findEventById.contactInfo
+      updateDetails.value = findEventById.details
+
+    }
   }
+  document.getElementById('modal').classList.toggle('hidden')
+}
 
+
+
+
+const updateEvent = async () => {
+
+  if (updateName.value == findEventById.name &&
+     updateLocationAddress.value == findEventById.locationAddress &&
+      updateLocationName.value == findEventById.locationName && 
+      updateDescription.value == findEventById.description && 
+      updateStartDate.value == findEventById.startDate && 
+      updateEndDate.value == findEventById.endDate &&
+       updateEntryPrice == findEventById.entryPrice && 
+       updateContactInfo.value == findEventById.contactInfo &&
+        updateDetails.value == findEventById.details) {
+    alert('Please update any input')
+  } else {
+    try {
+      const updateEvent = {
+        name: updateName.value,
+        locationAddress: updateLocationAddress.value,
+        locationName: updateLocationName.value,
+        description: updateDescription.value,
+        startDate: updateStartDate.value,
+        endDate: updateEndDate.value,
+        entryPrice: updateEntryPrice.value,
+        contactInfo: updateContactInfo.value,
+        updateDetails: updateDetails.value
+      }
+
+      const request = await fetch(`http://localhost:3001/api/updateevent/${findId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updateEvent)
+      })
+
+
+      if (!request.ok) {
+        throw new Error('Request is failed')
+      } else {
+        const response = await request.json()
+        console.log(response);
+        location.reload()
+      }
+
+
+    } catch (err) {
+      alert(err.message)
+    }
+  }
+}
+
+updateEventBtn.addEventListener('click', updateEvent)
 

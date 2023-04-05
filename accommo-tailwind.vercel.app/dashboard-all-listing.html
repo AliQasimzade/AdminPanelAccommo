@@ -65,7 +65,7 @@
             <a href="dashboard-package.html" class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="mr-2 w-4 h-4">
                 <path d="M50.73 58.53C58.86 42.27 75.48 32 93.67 32H208V160H0L50.73 58.53zM240 160V32H354.3C372.5 32 389.1 42.27 397.3 58.53L448 160H240zM448 416C448 451.3 419.3 480 384 480H64C28.65 480 0 451.3 0 416V192H448V416z" fill="currentColor" />
-              </svg> All Status</a>
+              </svg> Users</a>
           </li>
           <li data-active-page="all-listing" data-page-name="agent-list" class="sidebar-link flex items-center mb-2">
             <a href="dashboard-agent-list.html" class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500">
@@ -207,41 +207,6 @@
             <li class="mr-9">
               <a href="dashboard-home.html" class="hover:text-blue-500">Home</a>
             </li>
-            <li class="mr-9">
-              <a href="#" class="hover:text-blue-500">Listing</a>
-            </li>
-            <li class="mr-9">
-              <div class="dropdown mr-5" data-dropdown>
-                <button class="link hover:text-blue-500 flex items-center" data-dropdown-button> Pages <svg class="w-3 h-auto ml-2" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.99982 6.00001C4.79513 6.00001 4.59034 5.92467 4.43435 5.774L0.434558 1.91686C0.122074 1.61552 0.122074 1.12735 0.434558 0.826011C0.747042 0.524671 1.25327 0.524671 1.56575 0.826011L4.99982 4.13893L8.43464 0.826613C8.74712 0.525274 9.25335 0.525274 9.56583 0.826613C9.87831 1.12795 9.87831 1.61612 9.56583 1.91746L5.56604 5.7746C5.4098 5.92527 5.20481 6.00001 4.99982 6.00001Z" fill="currentColor" />
-                  </svg>
-                </button>
-                <div class="dropdown-menu whitespace-nowrap bg-white dark:bg-foreground dark:text-gray-300 text-gray-700">
-                  <div>
-                    <div x-data="{pages: [
-											{ title: 'Agent Profile', url: 'agent-profile.html' },
-											{ title: 'Agent List', url: 'agent-list.html' },
-											{ title: 'Blog Details', url: 'blog-details-page.html' },
-											{ title: 'Blog List', url: 'blog-list-page.html' },
-											{ title: 'Booking', url: 'bookin-page.html' },
-											{ title: 'Contact', url: 'contact-page.html' },
-											{ title: 'Apartment Details Page', url: 'apartment-details-page.html' },
-											{ title: 'Event-listing-details-page', url: 'event-listing-details-page.html' },
-											{ title: 'Resturant-details-page', url: 'resturant-details-page.html' },
-											{ title: 'Listing Grid', url: 'listing-grid.html' },
-											{ title: 'Listing Map Grid', url: 'listing-map-grid-view.html' },
-											{ title: 'Pricing Page 1', url: 'pricing-page-1.html' },
-											{ title: 'Pricing Page 2', url: 'pricing-page-2.html' },
-											{ title: 'Listing', url: 'listing-list.html' },
-										]}" class="dropdown-links">
-                      <template x-for="page in pages">
-                        <a :href="page.url" x-text="page.title" class="link hover:bg-blue-500 hover:text-white px-4 py-1"></a>
-                      </template>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
           </ul>
         </div>
         <div class="flex items-center">
@@ -301,11 +266,6 @@
               </div>
             </div>
           </div>
-          <button type="button" class="inline-flex items-center px-3 py-2 rounded-lg border border-gray-200 text-gray-700 dark:text-gray-300">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="h-4 w-4 lg:mr-2 mr-0">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-            </svg> <span class="lg:flex hidden">Add Listing</span>
-          </button>
         </div>
       </div>
     </div>
@@ -319,17 +279,13 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
               </svg> <span>All Listings</span>
             </div>
-            <button type="button" class="flex items-center bg-blue-500 hover:bg-blue-600 text-white rounded px-3 py-2.5 mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="h-6 w-6 mr-2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-              </svg> Add New Blog </button>
           </div>
           <div class="bg-white shadow-front-2 dark:bg-foreground rounded-lg mb-7 overflow-hidden">
             <div class="flex flex-col">
               <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                   <div class="overflow-hidden">
-                    <table id="myTable" class="min-w-full">
+                    <table class="min-w-full">
                       <thead class="">
                         <tr class="">
                           <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 dark:bg-background items-center flex font-medium text-gray-700 dark:text-gray-100 px-6 py-3 text-left"> Name </th>
