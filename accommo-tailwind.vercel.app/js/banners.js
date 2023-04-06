@@ -1,24 +1,7 @@
-const name = document.getElementById("name")
-const image = document.getElementById("image")
 const icon = document.getElementById("icon")
 const submit = document.getElementById("submit")
 
-let getImageUrl;
 let getIconUrl
-
- 
-image.addEventListener('change', (e) => {
-
-    const testImageUrl = e.target.files[0]
-    const reader = new FileReader()
-    reader.addEventListener('load', (e) => {
-        getImageUrl= reader.result;
-        console.log(getImageUrl);
-    });
-    reader.readAsDataURL(e.target.files[0]);
-
-})
-
 icon.addEventListener('change', (e) => {
     const reader = new FileReader()
     reader.addEventListener('load', (e) => {
@@ -28,15 +11,11 @@ icon.addEventListener('change', (e) => {
     reader.readAsDataURL(e.target.files[0]);
 
 })
-
-const createCatogory =  async() =>{
+const createTag = async()=>{
     const newElement ={
-        name : name.value,
-        image : getImageUrl,
         icon : getIconUrl
     }
-
-    const req = await fetch("http://localhost:3001/api/createcategory" , {
+    const req = await fetch("http://localhost:3001/api/createbanner" , {
         method : "POST",
         headers :{
             "Content-Type" : "application/json",
@@ -48,4 +27,4 @@ const createCatogory =  async() =>{
     const res = await req.json()
     console.log(res);
 }
-submit.addEventListener("click" , createCatogory )
+submit.addEventListener("click" , createTag )
