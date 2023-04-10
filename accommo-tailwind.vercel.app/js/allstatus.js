@@ -4,7 +4,7 @@ const updateStatus = document.getElementById("updateStatus")
 let status = [];
 
 const getStatus = async()=>{
-    let req = await fetch("http://localhost:3001/api/status")
+    let req = await fetch("https://adminpanelback.onrender.com/api/status")
     let res = await req.json()
     status = [...res]
     console.log(status);
@@ -51,7 +51,7 @@ image.addEventListener('change', (e) => {
 
   async function deleteElement(id){
     console.log(id);
-    const request = await fetch(`http://localhost:3001/api/deletestatus/${id}`, {
+    const request = await fetch(`https://adminpanelback.onrender.com/api/deletestatus/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json"

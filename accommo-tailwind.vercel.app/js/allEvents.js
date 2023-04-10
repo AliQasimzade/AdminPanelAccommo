@@ -12,7 +12,7 @@ let events = []
 const tbody = document.getElementById("tbody")
 
 const getData = async () => {
-  let req = await fetch("http://localhost:3001/api/events")
+  let req = await fetch("https://adminpanelback.onrender.com/api/events")
   let res = await req.json()
   events = [...res]
   events.forEach(item => {
@@ -99,7 +99,7 @@ const updateEvent = async () => {
         updateDetails: updateDetails.value
       }
 
-      const request = await fetch(`http://localhost:3001/api/updateevent/${findId}`, {
+      const request = await fetch(`https://adminpanelback.onrender.com/api/updateevent/${findId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"

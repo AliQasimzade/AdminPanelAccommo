@@ -10,7 +10,7 @@ const updateUserBtn = document.getElementById('updateUserBtn')
 let users = []
 const getUsers = async () => {
     try {
-        const request = await fetch('http://localhost:3001/api/allusers')
+        const request = await fetch('https://adminpanelback.onrender.com/api/allusers')
 
         if (!request.ok) {
             throw new Error('Request is failed !')
@@ -94,7 +94,7 @@ const updateUser = async () => {
                 isAdmin: updateIsAdmin.value == 'true' ? true : false
             }
 
-            const request = await fetch(`http://localhost:3001/api/updateuser/${findId}`, {
+            const request = await fetch(`https://adminpanelback.onrender.com/api/updateuser/${findId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -107,7 +107,7 @@ const updateUser = async () => {
                 throw new Error('Request is failed')
             } else {
                 const response = await request.json()
-                console.log(response);
+             location.reload()
             }
 
 
@@ -120,7 +120,7 @@ const updateUser = async () => {
 const deleteUser = async (id) => {
     findId = id
     try {
-        const request = await fetch(`http://localhost:3001/api/deleteuser/${findId}`, {
+        const request = await fetch(`https://adminpanelback.onrender.com/api/deleteuser/${findId}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"

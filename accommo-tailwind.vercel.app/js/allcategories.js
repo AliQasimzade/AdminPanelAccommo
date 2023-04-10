@@ -1,10 +1,10 @@
 const tbody = document.getElementById("tbody")
 let categories = []
 const image = document.getElementById("updateImage")
-const icon = document.getElementById("updateicon")
+const icon = document.getElementById("updateIcon")
 
 const  getCategories = async ()=>{
-    let req = await fetch("http://localhost:3001/api/categories")
+    let req = await fetch("https://adminpanelback.onrender.com/api/categories")
     let res = await req.json()
     categories = [...res]
     console.log(categories);
@@ -47,26 +47,69 @@ let findCategoryById;
 let getImageUrl;
 let getIconUrl;
 
+const firebaseConfig = {
+  apiKey: "AIzaSyCrjc7qRA9Z51nm_zJIB7FAXS9dmepEUk8",
+  authDomain: "adminpanel-da8aa.firebaseapp.com",
+  databaseURL: "https://adminpanel-da8aa-default-rtdb.firebaseio.com",
+  projectId: "adminpanel-da8aa",
+  storageBucket: "adminpanel-da8aa.appspot.com",
+  messagingSenderId: "381842069412",
+  appId: "1:381842069412:web:850d704de6d0cd10245331"
+};
 
+firebase.initializeApp(firebaseConfig);
+
+let storage = firebase.storage();
 image.addEventListener('change', (e) => {
 
-  console.log(e.target.files[0].name);
-    const reader = new FileReader()
-    reader.addEventListener('load', (e) => {
-        getImageUrl= reader.result;
-    });
-    reader.readAsDataURL(e.target.files[0]);
-  console.log(e.target.files);
+  let file = e.target.files[0]
+  let storageRef = storage.ref();
+  let imagesRef = storageRef.child('images/' + file.name);
+
+  let uploadTask = imagesRef.put(file);
+
+  uploadTask.on('state_changed',
+      (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+      },
+      function (error) {
+
+          console.error('Upload failed:', error);
+      },
+      function () {
+          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+            console.log(downloadURL);
+              getImageUrl = downloadURL
+          });
+      }
+  );
 })
 
 icon.addEventListener('change', (e) => {
 
-    const reader = new FileReader()
-    reader.addEventListener('load', (e) => {
-        getImageUrl= reader.result;
-    });
-    reader.readAsDataURL(e.target.files[0]);
-    console.log(e.target.files);
+  let file = e.target.files[0]
+  let storageRef = storage.ref();
+  let imagesRef = storageRef.child('images/' + file.name);
+
+  let uploadTask = imagesRef.put(file);
+
+  uploadTask.on('state_changed',
+      (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+      },
+      function (error) {
+
+          console.error('Upload failed:', error);
+      },
+      function () {
+          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+            console.log(downloadURL);
+              getIconUrl = downloadURL
+          });
+      }
+  );
 })
 
 function toggleModal(id) {
@@ -76,9 +119,6 @@ function toggleModal(id) {
     findCategoryById = categories.find( category => category._id === id)
     if (findCategoryById) {
         updateName.value = findCategoryById.name
-       
-        image.files[0] = {name:"profile.jpg"}
-        console.log(image.files);
     }
   }
   document.getElementById('modal').classList.toggle('hidden')
@@ -87,14 +127,16 @@ function toggleModal(id) {
 
 const updateCategory = async () => {
 
-  if (updateName.value == findCategoryById.name ) {
+  if (updateName.value == findCategoryById.name && getImageUrl == findCategoryById.image && getIconUrl == findCategoryById.icon ) {
     alert('Please update any input')
   } else {
     try {
       const updateCategoryObj = {
         name: updateName.value,
+        image: getImageUrl,
+        icon:getIconUrl
       }
-      const request = await fetch(`http://localhost:3001/api/updateevent/${findId}`, {
+      const request = await fetch(`https://adminpanelback.onrender.com/api/updatecategory/${findId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"
@@ -122,7 +164,7 @@ updateEventBtn.addEventListener('click', updateCategory)
 // delete
 async function deleteElement(id){
     console.log(id);
-    const request = await fetch(`http://localhost:3001/api/deletecategory/${id}`, {
+    const request = await fetch(`https://adminpanelback.onrender.com/api/deletecategory/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json"

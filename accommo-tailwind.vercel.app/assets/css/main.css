@@ -3420,6 +3420,7 @@ p {
 .dashboard-sidebar .active{
   --tw-text-opacity: 1;
   color: rgb(46 144 250 / var(--tw-text-opacity));
+  background-color: rgb(52 64 84 / var(--tw-bg-opacity));
 }
 .dashboard-sidebar .active a{
   --tw-bg-opacity: 1;

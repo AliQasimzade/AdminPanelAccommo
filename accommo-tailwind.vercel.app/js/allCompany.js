@@ -2,7 +2,7 @@ const tbody = document.getElementById("tbody")
 let companies = [];
 
 const getCompanies = async()=>{
-    let req = await fetch("http://localhost:3001/api/company")
+    let req = await fetch("https://adminpanelback.onrender.com/api/company")
     let res = await req.json()
     companies = [...res]
     console.log(companies);
@@ -17,10 +17,10 @@ const getCompanies = async()=>{
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3"> 
             <img src= ${company.splashScreen} class="w-12 h-12">
         </td>
+        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.socialLinks[0]} </td>
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.socialLinks[1]} </td>
-        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.socialLinks[3]} </td>
-        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.socialLinks[4]} </td>
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.socialLinks[2]} </td>
+        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.socialLinks[3]} </td>
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.phone}</td>
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.email}</td>
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.address}</td>
@@ -50,23 +50,65 @@ let findId;
 let findCompanyById;
 let getIconUrl;
 let getImageUrl
+const firebaseConfig = {
+  apiKey: "AIzaSyCrjc7qRA9Z51nm_zJIB7FAXS9dmepEUk8",
+  authDomain: "adminpanel-da8aa.firebaseapp.com",
+  databaseURL: "https://adminpanel-da8aa-default-rtdb.firebaseio.com",
+  projectId: "adminpanel-da8aa",
+  storageBucket: "adminpanel-da8aa.appspot.com",
+  messagingSenderId: "381842069412",
+  appId: "1:381842069412:web:850d704de6d0cd10245331"
+};
 
+firebase.initializeApp(firebaseConfig);
+
+let storage = firebase.storage();
 updateIcon.addEventListener('change', (e) => {
-    const reader = new FileReader()
-    reader.addEventListener('load', (e) => {
-      getIconUrl= reader.result;
-    });
-    reader.readAsDataURL(e.target.files[0]);
-    console.log(e.target.files);
+  let file = e.target.files[0]
+  let storageRef = storage.ref();
+  let imagesRef = storageRef.child('images/' + file.name);
+
+  let uploadTask = imagesRef.put(file);
+
+  uploadTask.on('state_changed',
+      (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+      },
+      function (error) {
+
+          console.error('Upload failed:', error);
+      },
+      function () {
+          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+              getIconUrl = downloadURL
+          });
+      }
+  );
 })
 
 updateImage.addEventListener('change', (e) => {
-    const reader = new FileReader()
-    reader.addEventListener('load', (e) => {
-        getImageUrl= reader.result;
-    });
-    reader.readAsDataURL(e.target.files[0]);
-    console.log(e.target.files);
+  let file = e.target.files[0]
+  let storageRef = storage.ref();
+  let imagesRef = storageRef.child('images/' + file.name);
+
+  let uploadTask = imagesRef.put(file);
+
+  uploadTask.on('state_changed',
+      (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+      },
+      function (error) {
+
+          console.error('Upload failed:', error);
+      },
+      function () {
+          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+              getImageUrl = downloadURL
+          });
+      }
+  );
 })
 
 function toggleModal(id) {
@@ -75,14 +117,10 @@ function toggleModal(id) {
     if (id) {
         findCompanyById = companies.find( company => company._id === id)
       if (findCompanyById) {
-        //   updateIcon = findCompanyById.icon
-        //   iconu elave etmek lazimdi
-        // updateImage = findCompanyById.splashScreen
-        //   splashScreen elave etmek lazimdi
-        updateFacebook.value = findCompanyById.socialLinks[1]
-        updateInstagram.value = findCompanyById.socialLinks[3]
-        updateYoutube.value = findCompanyById.socialLinks[4]
-        updateLinkedin.value = findCompanyById.socialLinks[2]
+        updateFacebook.value = findCompanyById.socialLinks[0]
+        updateInstagram.value = findCompanyById.socialLinks[1]
+        updateYoutube.value = findCompanyById.socialLinks[2]
+        updateLinkedin.value = findCompanyById.socialLinks[3]
         updatePhone.value = findCompanyById.phone
         updateEmail.value = findCompanyById.email
         updateAdress.value = findCompanyById.address
@@ -95,11 +133,10 @@ function toggleModal(id) {
 //  update
   const updateCompany = async () => {
     if ( 
-        // icon ve img olacag
-        updateFacebook.value == findCompanyById.socialLinks[1] &&
-        updateInstagram.value == findCompanyById.socialLinks[3] &&
-        updateYoutube.value == findCompanyById.socialLinks[4] &&
-        updateLinkedin.value == findCompanyById.socialLinks[2] &&
+        updateFacebook.value == findCompanyById.socialLinks[0] &&
+        updateInstagram.value == findCompanyById.socialLinks[1] &&
+        updateYoutube.value == findCompanyById.socialLinks[2] &&
+        updateLinkedin.value == findCompanyById.socialLinks[3] &&
         updatePhone.value == findCompanyById.phone &&
         updateEmail.value == findCompanyById.email &&
         updateAdress.value == findCompanyById.address &&
@@ -111,6 +148,8 @@ function toggleModal(id) {
       try {
         const updateCompanyObj = {
             // icon ve sekil gelemlidii
+            icon: getIconUrl,
+            splashScreen: getImageUrl,
             email : updateEmail.value,
             phone : updatePhone.value,
             termsAndConditions : updateTerms.value,
@@ -118,7 +157,7 @@ function toggleModal(id) {
             address : updateAdress.value,
             socialLinks :[updateFacebook.value , updateLinkedin.value,updateInstagram.value,updateYoutube.value]
         }
-        const request = await fetch(`http://localhost:3001/api/updatecompany/${findId}`, {
+        const request = await fetch(`https://adminpanelback.onrender.com/api/updatecompany/${findId}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -146,7 +185,7 @@ function toggleModal(id) {
 
   async function deleteElement(id){
     console.log(id);
-    const request = await fetch(`http://localhost:3001/api/deleteProperty/${id}`, {
+    const request = await fetch(`https://adminpanelback.onrender.com/api/deletecompany/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json"

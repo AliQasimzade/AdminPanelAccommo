@@ -21,7 +21,7 @@ const createEvent = async ()=>{
         contactInfo : info.value,
         details : details.value
     }
-    const req = await fetch("http://localhost:3001/api/createevent" , {
+    const req = await fetch("https://adminpanelback.onrender.com/api/createevent" , {
         method : "POST",
         headers :{
             "Content-Type" : "application/json",

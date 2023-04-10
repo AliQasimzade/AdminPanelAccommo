@@ -23,6 +23,9 @@
       type="text/css"
       href="assets/css/plugin-css/swiper-bundle.css"
     />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
     <link
       rel="stylesheet"
       type="text/css"
@@ -75,11 +78,7 @@
         <div class="p-6 min-h-[85%]">
           <ul class="mb-10">
             <p class="uppercase text-gray-500 mb-3 text-sm ml-4">pages</p>
-            <li
-              data-active-page="add-listing"
-              data-page-name="dashboard"
-              class="sidebar-link flex items-center mb-2"
-            >
+            <li class="sidebar-link flex items-center mb-2">
               <a
                 href="dashboard-home.html"
                 class="flex items-center hover:bg-gray-700 hover:text-blue-500 flex-1 py-2 px-3 rounded-lg"
@@ -104,11 +103,7 @@
                 Dashboard
               </a>
             </li>
-            <li
-              data-active-page="add-listing"
-              data-page-name="purchase-history"
-              class="sidebar-link mb-2"
-            >
+            <li class="sidebar-link mb-2">
               <a
                 href="dashboard-purchase-history.html"
                 class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
@@ -123,14 +118,10 @@
                     fill="currentColor"
                   />
                 </svg>
-                Purchase History
+                All Properties
               </a>
             </li>
-            <li
-              data-active-page="add-listing"
-              data-page-name="blog-list"
-              class="sidebar-link mb-2"
-            >
+            <li class="sidebar-link mb-2">
               <a
                 href="dashboard-blog-list.html"
                 class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
@@ -145,14 +136,10 @@
                     fill="currentColor"
                   />
                 </svg>
-                Blog List
+                All Events
               </a>
             </li>
-            <li
-              data-active-page="add-listing"
-              data-page-name="edit-package"
-              class="sidebar-link flex items-center mb-2"
-            >
+            <li class="sidebar-link flex items-center mb-2">
               <a
                 href="dashboard-edit-package.html"
                 class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
@@ -165,16 +152,11 @@
                   <path
                     d="M0 64C0 28.65 28.65 0 64 0H224V128C224 145.7 238.3 160 256 160H384V299.6L289.3 394.3C281.1 402.5 275.3 412.8 272.5 424.1L257.4 484.2C255.1 493.6 255.7 503.2 258.8 512H64C28.65 512 0 483.3 0 448V64zM256 128V0L384 128H256zM564.1 250.1C579.8 265.7 579.8 291 564.1 306.7L534.7 336.1L463.8 265.1L493.2 235.7C508.8 220.1 534.1 220.1 549.8 235.7L564.1 250.1zM311.9 416.1L441.1 287.8L512.1 358.7L382.9 487.9C378.8 492 373.6 494.9 368 496.3L307.9 511.4C302.4 512.7 296.7 511.1 292.7 507.2C288.7 503.2 287.1 497.4 288.5 491.1L303.5 431.8C304.9 426.2 307.8 421.1 311.9 416.1V416.1z"
                     fill="currentColor"
-                  />
-                </svg>
-               Add Event
+                  /></svg
+                >Add Event
               </a>
             </li>
-            <li
-              data-active-page="add-listing"
-              data-page-name="packages"
-              class="sidebar-link flex items-center mb-2"
-            >
+            <li class="sidebar-link flex items-center mb-2">
               <a
                 href="dashboard-package.html"
                 class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
@@ -189,14 +171,10 @@
                     fill="currentColor"
                   />
                 </svg>
-                Packages
-              </a>
+                Users</a
+              >
             </li>
-            <li
-              data-active-page="add-listing"
-              data-page-name="agent-list"
-              class="sidebar-link flex items-center mb-2"
-            >
+            <li class="sidebar-link flex items-center mb-2">
               <a
                 href="dashboard-agent-list.html"
                 class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
@@ -211,14 +189,10 @@
                     fill="currentColor"
                   />
                 </svg>
-                Agent List
+                Add Category
               </a>
             </li>
-            <li
-              data-active-page="add-listing"
-              data-page-name="all-listing"
-              class="sidebar-link flex items-center mb-2"
-            >
+            <li class="sidebar-link flex items-center mb-2">
               <a
                 href="dashboard-all-listing.html"
                 class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
@@ -236,14 +210,10 @@
                 All Listing
               </a>
             </li>
-            <li
-              data-active-page="add-listing"
-              data-page-name="add-listing"
-              class="sidebar-link flex items-center mb-2"
-            >
+            <li class="sidebar-link flex items-center mb-2">
               <a
                 href="dashboard-addlisting-2.html"
-                class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
+                class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500 active"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -258,11 +228,7 @@
                 Add Listing
               </a>
             </li>
-            <li
-              data-active-page="add-listing"
-              data-page-name="messages"
-              class="sidebar-link flex items-center mb-2"
-            >
+            <li class="sidebar-link flex items-center mb-2">
               <a
                 href="dashboard-messages.html"
                 class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
@@ -284,14 +250,10 @@
                     fill="#D0D5DD"
                   />
                 </svg>
-                Messages
-              </a>
+                All categories</a
+              >
             </li>
-            <li
-              data-active-page="add-listing"
-              data-page-name="booking"
-              class="sidebar-link flex items-center mb-2"
-            >
+            <li class="sidebar-link flex items-center mb-2">
               <a
                 href="dashboard-booking.html"
                 class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
@@ -313,20 +275,13 @@
                     fill="currentColor"
                   />
                 </svg>
-                Booking
-              </a>
+                Add Property</a
+              >
             </li>
-          </ul>
-          <ul class="mb-10">
-            <p class="uppercase text-gray-500 mb-3 text-sm ml-4">listing</p>
-            <li>
-              <button
-                type="button"
-                id="listing"
-                aria-expanded="false"
-                data-hc-control="listing"
-                aria-controls="listingNav"
-                class="group w-full flex items-center hover:bg-gray-700 hover:text-blue-500 flex-1 py-2 px-3 rounded-lg"
+            <li class="sidebar-link flex items-center mb-2">
+              <a
+                href="dashboard-add-status.html"
+                class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
               >
                 <svg
                   width="20"
@@ -334,6 +289,106 @@
                   viewBox="0 0 20 20"
                   fill="none"
                   class="mr-2 w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10 12.715C10 10.2182 12.0156 8.19252 14.5 8.19252C16.9844 8.19252 19 10.2182 19 12.715C19 15.2118 16.9844 17.2375 14.5 17.2375C12.0156 17.2375 10 15.2118 10 12.715ZM16.6031 12.0649C16.8 11.8702 16.8 11.5498 16.6031 11.3551C16.4094 11.1573 16.0906 11.1573 15.8969 11.3551L14 13.2615L13.1031 12.3601C12.9094 12.1623 12.5906 12.1623 12.3969 12.3601C12.2 12.5548 12.2 12.8752 12.3969 13.0699L13.6469 14.3262C13.8406 14.524 14.1594 14.524 14.3531 14.3262L16.6031 12.0649Z"
+                    fill="#98A2B3"
+                  />
+                  <path
+                    d="M2.58531 2.99571C2.83938 2.48504 3.35875 2.1625 3.92719 2.1625H7.5V6.1825H1L2.58531 2.99571ZM8.5 6.1825V2.1625H12.0719C12.6406 2.1625 13.1594 2.48504 13.4156 2.99571L15 6.1825H8.5ZM14 7.20949C11.1969 7.46388 9 9.83191 9 12.715C9 14.0498 9.47188 15.2778 10.2563 16.2325H3C1.89531 16.2325 1 15.3311 1 14.2225V7.1875H14V7.20949Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                Add Status</a
+              >
+            </li>
+            <li class="sidebar-link flex items-center mb-2">
+              <a
+                href="dashboard-all-status.html"
+                class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  class="mr-2 w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10 12.715C10 10.2182 12.0156 8.19252 14.5 8.19252C16.9844 8.19252 19 10.2182 19 12.715C19 15.2118 16.9844 17.2375 14.5 17.2375C12.0156 17.2375 10 15.2118 10 12.715ZM16.6031 12.0649C16.8 11.8702 16.8 11.5498 16.6031 11.3551C16.4094 11.1573 16.0906 11.1573 15.8969 11.3551L14 13.2615L13.1031 12.3601C12.9094 12.1623 12.5906 12.1623 12.3969 12.3601C12.2 12.5548 12.2 12.8752 12.3969 13.0699L13.6469 14.3262C13.8406 14.524 14.1594 14.524 14.3531 14.3262L16.6031 12.0649Z"
+                    fill="#98A2B3"
+                  />
+                  <path
+                    d="M2.58531 2.99571C2.83938 2.48504 3.35875 2.1625 3.92719 2.1625H7.5V6.1825H1L2.58531 2.99571ZM8.5 6.1825V2.1625H12.0719C12.6406 2.1625 13.1594 2.48504 13.4156 2.99571L15 6.1825H8.5ZM14 7.20949C11.1969 7.46388 9 9.83191 9 12.715C9 14.0498 9.47188 15.2778 10.2563 16.2325H3C1.89531 16.2325 1 15.3311 1 14.2225V7.1875H14V7.20949Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                All Status</a
+              >
+            </li>
+            <li class="sidebar-link flex items-center mb-2">
+              <a
+                href="dashboard-create-company.html"
+                class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  class="mr-2 w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10 12.715C10 10.2182 12.0156 8.19252 14.5 8.19252C16.9844 8.19252 19 10.2182 19 12.715C19 15.2118 16.9844 17.2375 14.5 17.2375C12.0156 17.2375 10 15.2118 10 12.715ZM16.6031 12.0649C16.8 11.8702 16.8 11.5498 16.6031 11.3551C16.4094 11.1573 16.0906 11.1573 15.8969 11.3551L14 13.2615L13.1031 12.3601C12.9094 12.1623 12.5906 12.1623 12.3969 12.3601C12.2 12.5548 12.2 12.8752 12.3969 13.0699L13.6469 14.3262C13.8406 14.524 14.1594 14.524 14.3531 14.3262L16.6031 12.0649Z"
+                    fill="#98A2B3"
+                  />
+                  <path
+                    d="M2.58531 2.99571C2.83938 2.48504 3.35875 2.1625 3.92719 2.1625H7.5V6.1825H1L2.58531 2.99571ZM8.5 6.1825V2.1625H12.0719C12.6406 2.1625 13.1594 2.48504 13.4156 2.99571L15 6.1825H8.5ZM14 7.20949C11.1969 7.46388 9 9.83191 9 12.715C9 14.0498 9.47188 15.2778 10.2563 16.2325H3C1.89531 16.2325 1 15.3311 1 14.2225V7.1875H14V7.20949Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                Create Company</a
+              >
+            </li>
+            <li class="sidebar-link flex items-center mb-2">
+              <a
+                href="dashboard-update-company.html"
+                class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  class="mr-2 w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10 12.715C10 10.2182 12.0156 8.19252 14.5 8.19252C16.9844 8.19252 19 10.2182 19 12.715C19 15.2118 16.9844 17.2375 14.5 17.2375C12.0156 17.2375 10 15.2118 10 12.715ZM16.6031 12.0649C16.8 11.8702 16.8 11.5498 16.6031 11.3551C16.4094 11.1573 16.0906 11.1573 15.8969 11.3551L14 13.2615L13.1031 12.3601C12.9094 12.1623 12.5906 12.1623 12.3969 12.3601C12.2 12.5548 12.2 12.8752 12.3969 13.0699L13.6469 14.3262C13.8406 14.524 14.1594 14.524 14.3531 14.3262L16.6031 12.0649Z"
+                    fill="#98A2B3"
+                  />
+                  <path
+                    d="M2.58531 2.99571C2.83938 2.48504 3.35875 2.1625 3.92719 2.1625H7.5V6.1825H1L2.58531 2.99571ZM8.5 6.1825V2.1625H12.0719C12.6406 2.1625 13.1594 2.48504 13.4156 2.99571L15 6.1825H8.5ZM14 7.20949C11.1969 7.46388 9 9.83191 9 12.715C9 14.0498 9.47188 15.2778 10.2563 16.2325H3C1.89531 16.2325 1 15.3311 1 14.2225V7.1875H14V7.20949Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                Update Company</a
+              >
+            </li>
+            <li class="sidebar-link flex items-center mb-2">
+              <a
+                href="dashboard-mylisting.html"
+                class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 text-sm hover:text-blue-500"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  class="mr-2 w-4 h-4"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -345,95 +400,35 @@
                     fill="#D0D5DD"
                   />
                 </svg>
-                <div class="w-full flex items-center justify-between">
-                  <span>Listing</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 384 512"
-                    class="h-[14px] w-[14px] group-hover:text-blue-500 ml-5"
-                  >
-                    <path
-                      d="M336 64h-53.88C268.9 26.8 233.7 0 192 0S115.1 26.8 101.9 64H48C21.5 64 0 85.48 0 112v352C0 490.5 21.5 512 48 512h288c26.5 0 48-21.48 48-48v-352C384 85.48 362.5 64 336 64zM192 64c17.67 0 32 14.33 32 32c0 17.67-14.33 32-32 32S160 113.7 160 96C160 78.33 174.3 64 192 64zM96 392c-13.25 0-24-10.75-24-24S82.75 344 96 344s24 10.75 24 24S109.3 392 96 392zM112 288C107.9 288 103.8 286.4 100.7 283.3l-32-32c-6.25-6.25-6.25-16.38 0-22.62s16.38-6.25 22.62 0L112 249.4l52.69-52.69c6.25-6.25 16.38-6.25 22.62 0s6.25 16.38 0 22.62l-64 64C120.2 286.4 116.1 288 112 288zM304 384h-128C167.2 384 160 376.8 160 368C160 359.2 167.2 352 176 352h128c8.801 0 16 7.199 16 16C320 376.8 312.8 384 304 384zM304 288h-96C199.2 288 192 280.8 192 272C192 263.2 199.2 256 208 256h96C312.8 256 320 263.2 320 272C320 280.8 312.8 288 304 288z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </div>
-              </button>
-              <div
-                class="pl-5"
-                id="listingNav"
-                data-hc-content="listing"
-                aria-hidden="false"
-              >
-                <ul class="pt-2">
-                  <li
-                    data-active-page="add-listing"
-                    data-page-name="my-listing"
-                    data-target-dropdown="listing"
-                    class="sidebar-link flex items-center mb-2"
-                  >
-                    <a
-                      href="dashboard-mylisting.html"
-                      class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 text-sm hover:text-blue-500"
-                    >
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        class="mr-2 w-4 h-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M9.26598 2.16147C9.73163 1.94618 10.2692 1.94618 10.7348 2.16147L17.5664 5.31891C17.832 5.44079 18.0008 5.70642 18.0008 5.97206C18.0008 6.29083 17.832 6.55647 17.5664 6.68147L10.7348 9.83788C10.2692 10.0535 9.73163 10.0535 9.26598 9.83788L2.43533 6.68147C2.16995 6.55647 2 6.29083 2 5.97206C2 5.70642 2.16991 5.44079 2.43533 5.31891L9.26598 2.16147ZM17.5664 13.3193C17.832 13.4412 18.0008 13.7068 18.0008 13.9725C18.0008 14.2912 17.832 14.5569 17.5664 14.6819L10.7348 17.8383C10.2692 18.0539 9.73163 18.0539 9.26598 17.8383L2.43533 14.6819C2.16995 14.5569 2 14.2912 2 13.9725C2 13.7068 2.16991 13.4412 2.43533 13.3193L4.09792 12.5505L8.84721 14.7444C9.5785 15.085 10.4223 15.085 11.1536 14.7444L15.9038 12.5505L17.5664 13.3193Z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M11.1536 10.7442L15.9038 8.55032L17.5664 9.31911C17.832 9.44099 18.0008 9.70663 18.0008 9.97227C18.0008 10.291 17.832 10.5567 17.5664 10.6817L10.7348 13.8381C10.2692 14.0537 9.73163 14.0537 9.26598 13.8381L2.43533 10.6817C2.16995 10.5567 2 10.291 2 9.97227C2 9.70663 2.16991 9.44099 2.43533 9.31911L4.09792 8.55032L8.84721 10.7442C9.5785 11.0848 10.4223 11.0848 11.1536 10.7442Z"
-                          fill="#D0D5DD"
-                        />
-                      </svg>
-                      My Listing
-                    </a>
-                  </li>
-                  <li
-                    data-active-page="add-listing"
-                    data-page-name="my-listing-grid"
-                    data-target-dropdown="listing"
-                    class="sidebar-link flex items-center mb-2"
-                  >
-                    <a
-                      href="dashboard-mylisting-grid-view.html"
-                      class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 text-sm hover:text-blue-500"
-                    >
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        class="mr-2 w-4 h-4"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M9.26598 2.16147C9.73163 1.94618 10.2692 1.94618 10.7348 2.16147L17.5664 5.31891C17.832 5.44079 18.0008 5.70642 18.0008 5.97206C18.0008 6.29083 17.832 6.55647 17.5664 6.68147L10.7348 9.83788C10.2692 10.0535 9.73163 10.0535 9.26598 9.83788L2.43533 6.68147C2.16995 6.55647 2 6.29083 2 5.97206C2 5.70642 2.16991 5.44079 2.43533 5.31891L9.26598 2.16147ZM17.5664 13.3193C17.832 13.4412 18.0008 13.7068 18.0008 13.9725C18.0008 14.2912 17.832 14.5569 17.5664 14.6819L10.7348 17.8383C10.2692 18.0539 9.73163 18.0539 9.26598 17.8383L2.43533 14.6819C2.16995 14.5569 2 14.2912 2 13.9725C2 13.7068 2.16991 13.4412 2.43533 13.3193L4.09792 12.5505L8.84721 14.7444C9.5785 15.085 10.4223 15.085 11.1536 14.7444L15.9038 12.5505L17.5664 13.3193Z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M11.1536 10.7442L15.9038 8.55032L17.5664 9.31911C17.832 9.44099 18.0008 9.70663 18.0008 9.97227C18.0008 10.291 17.832 10.5567 17.5664 10.6817L10.7348 13.8381C10.2692 14.0537 9.73163 14.0537 9.26598 13.8381L2.43533 10.6817C2.16995 10.5567 2 10.291 2 9.97227C2 9.70663 2.16991 9.44099 2.43533 9.31911L4.09792 8.55032L8.84721 10.7442C9.5785 11.0848 10.4223 11.0848 11.1536 10.7442Z"
-                          fill="#D0D5DD"
-                        />
-                      </svg>
-                      My Listing Grid view
-                    </a>
-                  </li>
-                </ul>
-              </div>
+                Add Banners
+              </a>
             </li>
-            <li
-              data-active-page="add-listing"
-              data-page-name="bookmarks"
-              class="sidebar-link flex items-center mb-2"
-            >
+
+            <li class="sidebar-link flex items-center mb-2">
+              <a
+                href="dashboard-mylisting-grid-view.html"
+                class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 text-sm hover:text-blue-500"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  class="mr-2 w-4 h-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.26598 2.16147C9.73163 1.94618 10.2692 1.94618 10.7348 2.16147L17.5664 5.31891C17.832 5.44079 18.0008 5.70642 18.0008 5.97206C18.0008 6.29083 17.832 6.55647 17.5664 6.68147L10.7348 9.83788C10.2692 10.0535 9.73163 10.0535 9.26598 9.83788L2.43533 6.68147C2.16995 6.55647 2 6.29083 2 5.97206C2 5.70642 2.16991 5.44079 2.43533 5.31891L9.26598 2.16147ZM17.5664 13.3193C17.832 13.4412 18.0008 13.7068 18.0008 13.9725C18.0008 14.2912 17.832 14.5569 17.5664 14.6819L10.7348 17.8383C10.2692 18.0539 9.73163 18.0539 9.26598 17.8383L2.43533 14.6819C2.16995 14.5569 2 14.2912 2 13.9725C2 13.7068 2.16991 13.4412 2.43533 13.3193L4.09792 12.5505L8.84721 14.7444C9.5785 15.085 10.4223 15.085 11.1536 14.7444L15.9038 12.5505L17.5664 13.3193Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M11.1536 10.7442L15.9038 8.55032L17.5664 9.31911C17.832 9.44099 18.0008 9.70663 18.0008 9.97227C18.0008 10.291 17.832 10.5567 17.5664 10.6817L10.7348 13.8381C10.2692 14.0537 9.73163 14.0537 9.26598 13.8381L2.43533 10.6817C2.16995 10.5567 2 10.291 2 9.97227C2 9.70663 2.16991 9.44099 2.43533 9.31911L4.09792 8.55032L8.84721 10.7442C9.5785 11.0848 10.4223 11.0848 11.1536 10.7442Z"
+                    fill="#D0D5DD"
+                  /></svg
+                >All Banners
+              </a>
+            </li>
+            <li class="sidebar-link flex items-center mb-2">
               <a
                 href="dashboard-bookmarks.html"
                 class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
@@ -455,14 +450,10 @@
                     fill="currentColor"
                   />
                 </svg>
-                Bookmarks
-              </a>
+                Add Tag</a
+              >
             </li>
-            <li
-              data-active-page="add-listing"
-              data-page-name="reviews"
-              class="sidebar-link flex items-center mb-2"
-            >
+            <li class="sidebar-link flex items-center mb-2">
               <a
                 href="dashboard-reviews.html"
                 class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
@@ -484,17 +475,13 @@
                     fill="#D0D5DD"
                   />
                 </svg>
-                Reviews
-              </a>
+                All Tags</a
+              >
             </li>
           </ul>
           <ul class="mb-10">
             <p class="uppercase text-gray-500 mb-3 text-sm ml-4">account</p>
-            <li
-              data-active-page="add-listing"
-              data-page-name="profile"
-              class="sidebar-link flex items-center mb-2"
-            >
+            <li class="sidebar-link flex items-center mb-2">
               <a
                 href="dashboard-myprofile.html"
                 class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
@@ -519,11 +506,7 @@
                 My Profile
               </a>
             </li>
-            <li
-              data-active-page="add-listing"
-              data-page-name="purchase"
-              class="sidebar-link flex items-center mb-2"
-            >
+            <li class="sidebar-link flex items-center mb-2">
               <a
                 href="#"
                 class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500"
@@ -604,17 +587,21 @@
               </svg>
             </button>
             <button type="button" class="mr-3 block dashboard-sidebar-control">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-            <ul class="lg:flex hidden items-center">
-              <li class="mr-9">
-                <a href="dashboard-home.html" class="hover:text-blue-500"
-                  >Home</a
-                >
-              </li>
-            </ul>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-blue-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
           </div>
           <div class="flex items-center">
             <div class="mr-9">
@@ -660,155 +647,7 @@
                 <span data-dropdown-button class="lg:block hidden"
                   >My Account</span
                 >
-                <svg
-                  class="w-3 h-auto ml-2"
-                  width="10"
-                  height="6"
-                  data-dropdown-button
-                  viewBox="0 0 10 6"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4.99982 6.00001C4.79513 6.00001 4.59034 5.92467 4.43435 5.774L0.434558 1.91686C0.122074 1.61552 0.122074 1.12735 0.434558 0.826011C0.747042 0.524671 1.25327 0.524671 1.56575 0.826011L4.99982 4.13893L8.43464 0.826613C8.74712 0.525274 9.25335 0.525274 9.56583 0.826613C9.87831 1.12795 9.87831 1.61612 9.56583 1.91746L5.56604 5.7746C5.4098 5.92527 5.20481 6.00001 4.99982 6.00001Z"
-                    fill="currentColor"
-                  />
-                </svg>
               </button>
-              <div
-                class="dropdown-menu bg-white dark:bg-foreground dark:text-gray-300 text-gray-700"
-              >
-                <div class="dropdown-links max-w-xs w-48 rounded-md py-3">
-                  <a
-                    class="link hover:text-blue-500 px-4 py-1 flex items-center text-sm text-gray-700 dark:text-gray-300"
-                  >
-                    <svg
-                      width="17"
-                      height="18"
-                      viewBox="0 0 17 18"
-                      fill="none"
-                      class="w-4 h-4 mr-2"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M15.1235 17V15.2222C15.1235 14.2793 14.7515 13.3749 14.0893 12.7081C13.4271 12.0413 12.5291 11.6667 11.5926 11.6667H4.53087C3.59443 11.6667 2.69633 12.0413 2.03417 12.7081C1.372 13.3749 1 14.2793 1 15.2222L1 17"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <path
-                        d="M8.06174 8.11111C10.0118 8.11111 11.5926 6.51923 11.5926 4.55556C11.5926 2.59188 10.0118 1 8.06174 1C6.11169 1 4.53087 2.59188 4.53087 4.55556C4.53087 6.51923 6.11169 8.11111 8.06174 8.11111Z"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                    <span>Account</span>
-                  </a>
-                  <a
-                    class="link hover:text-blue-500 px-4 py-1 flex items-center text-sm text-gray-700 dark:text-gray-300"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      class="w-4 h-4 mr-2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      />
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
-                    <span>Order Tracking</span>
-                  </a>
-                  <a
-                    class="link hover:text-blue-500 px-4 py-1 flex items-center text-sm text-gray-700 dark:text-gray-300"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      class="w-4 h-4 mr-2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
-                      />
-                    </svg>
-                    <span>My Voucher</span>
-                  </a>
-                  <a
-                    class="link hover:text-blue-500 px-4 py-1 flex items-center text-sm text-gray-700 dark:text-gray-300"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      class="w-4 h-4 mr-2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                      />
-                    </svg>
-                    <span>My Wishlist</span>
-                  </a>
-                  <a
-                    class="link hover:text-blue-500 px-4 py-1 flex items-center text-sm text-gray-700 dark:text-gray-300"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      class="w-4 h-4 mr-2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-                      />
-                    </svg>
-                    <span>Settings</span>
-                  </a>
-                  <a
-                    class="link hover:text-blue-500 px-4 py-1 flex items-center text-sm text-gray-700 dark:text-gray-300"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      class="w-4 h-4 mr-2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                      />
-                    </svg>
-                    <span>Sign Out</span>
-                  </a>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -853,7 +692,7 @@
                     for=""
                     class="text-base text-gray-700 dark:text-gray-200 block mb-3"
                   >
-                    Listing Title <sup class="text-red-500">*</sup>
+                    Name <sup class="text-red-500">*</sup>
                   </label>
                   <input
                     id="title"
@@ -874,12 +713,7 @@
                       id="category"
                       name="cars"
                       class="bg-white w-full border border-gray-200 dark:bg-foreground dark:border-gray-800 relative appearance-none text-gray-400 text-sm rounded px-4 py-[0.969rem] focus:border-blue-300 focus:outline-none"
-                    >
-                      <option value="volvo">Select a category</option>
-                      <option value="saab">Saab</option>
-                      <option value="mercedes">Mercedes</option>
-                      <option value="audi">Audi</option>
-                    </select>
+                    ></select>
                     <svg
                       width="10"
                       height="6"
@@ -898,16 +732,54 @@
                   <label
                     for=""
                     class="text-base text-gray-700 dark:text-gray-200 block mb-3"
-                    >Listing Keyword/Tag (No more than 5) *
-                    <sup class="text-red-500">*</sup></label
-                  >
+                    >Slogan <sup class="text-red-500">*</sup>
+                  </label>
+
                   <input
-                    id="keywords"
+                    id="slogan"
                     type="text"
                     class="border border-gray-200 dark:border-gray-800 text-gray-400 text-sm rounded px-4 dark:bg-foreground py-[15px] shadow-input hover:border hover:border-blue-200 focus:border-blue-200 focus:outline-none w-full mb-4"
-                    placeholder="e.g. Featured, Popular, Instant Booking"
+                    placeholder="Slogan"
                   />
                 </div>
+
+
+
+
+
+
+
+               <div class="lg:col-span-1 col-span-2">
+                <label
+                for=""
+                class="text-base text-gray-700 dark:text-gray-200 block mb-3"
+                >Type <sup class="text-red-500">*</sup>
+              </label>
+                <div class="relative mb-3">
+                 
+                  <select
+                  id="type"
+                  class="bg-white w-full border border-gray-200 dark:bg-foreground dark:border-gray-800 relative appearance-none text-gray-400 text-sm rounded px-4 py-[0.969rem] focus:border-blue-300 focus:outline-none"
+                >
+                <option value="lastadded">Last Added</option>
+                <option value="popular">Popular</option>
+                <option value="featured">Featured</option>
+              </select>
+              <svg
+              width="10"
+              height="6"
+              viewBox="0 0 10 6"
+              fill="currentColor"
+              class="w-3 h-3 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 z-10"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.99982 6.00001C4.79513 6.00001 4.59034 5.92467 4.43435 5.774L0.434558 1.91686C0.122074 1.61552 0.122074 1.12735 0.434558 0.826011C0.747042 0.524671 1.25327 0.524671 1.56575 0.826011L4.99982 4.13893L8.43464 0.826613C8.74713 0.525274 9.25335 0.525274 9.56583 0.826613C9.87832 1.12795 9.87832 1.61612 9.56583 1.91746L5.56604 5.7746C5.4098 5.92527 5.20481 6.00001 4.99982 6.00001Z"
+              />
+            </svg>
+                
+                </div>
+               </div>
               </div>
             </div>
             <!-- Locations form -->
@@ -924,44 +796,24 @@
                   <label
                     for=""
                     class="text-base text-gray-700 dark:text-gray-200 block mb-3"
-                    >Road or Street <sup class="text-red-500">*</sup></label
+                    >Street <sup class="text-red-500">*</sup></label
                   >
-                  <input
+                  <p
                     id="locations"
-                    type="text"
                     class="border border-gray-200 dark:border-gray-800 text-gray-400 text-sm rounded px-4 dark:bg-foreground py-[15px] shadow-input hover:border hover:border-blue-200 focus:border-blue-200 focus:outline-none w-full mb-4"
-                    placeholder="e.g. 12 San Pedro Street"
+                    
                   />
                 </div>
                 <div class="lg:col-span-1 col-span-2">
                   <label
                     for=""
                     class="text-base text-gray-700 dark:text-gray-200 block mb-3"
-                    >City or State</label
+                    >City</label
                   >
                   <div class="relative mb-3">
-                    <select
-                      id="city"
-                      name="cars"
-                      class="bg-white w-full border border-gray-200 dark:bg-foreground dark:border-gray-800 relative appearance-none text-gray-400 text-sm rounded px-4 py-[0.969rem] focus:border-blue-200 focus:outline-none"
-                    >
-                      <option value="volvo">Select a City or State</option>
-                      <option value="saab">Saab</option>
-                      <option value="mercedes">Mercedes</option>
-                      <option value="audi">Audi</option>
-                    </select>
-                    <svg
-                      width="10"
-                      height="6"
-                      viewBox="0 0 10 6"
-                      fill="currentColor"
-                      class="w-3 h-3 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 z-10"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M4.99982 6.00001C4.79513 6.00001 4.59034 5.92467 4.43435 5.774L0.434558 1.91686C0.122074 1.61552 0.122074 1.12735 0.434558 0.826011C0.747042 0.524671 1.25327 0.524671 1.56575 0.826011L4.99982 4.13893L8.43464 0.826613C8.74713 0.525274 9.25335 0.525274 9.56583 0.826613C9.87832 1.12795 9.87832 1.61612 9.56583 1.91746L5.56604 5.7746C5.4098 5.92527 5.20481 6.00001 4.99982 6.00001Z"
-                      />
-                    </svg>
+                   <p  id="city" class="border border-gray-200 dark:border-gray-800 text-gray-400 text-sm rounded px-4 dark:bg-foreground py-[15px] shadow-input hover:border hover:border-blue-200 focus:border-blue-200 focus:outline-none w-full mb-4"
+                  >
+
                   </div>
                 </div>
                 <div class="lg:col-span-1 col-span-2">
@@ -970,13 +822,14 @@
                     class="text-base text-gray-700 dark:text-gray-200 block mb-3"
                     >Address <sup class="text-red-500">*</sup></label
                   >
-                  <input
+                  <p
                     id="address"
-                    type="text"
                     class="border border-gray-200 dark:border-gray-800 text-gray-400 text-sm rounded px-4 dark:bg-foreground py-[15px] shadow-input hover:border hover:border-blue-200 focus:border-blue-200 focus:outline-none w-full mb-4"
                     placeholder="e.g. Bloosom"
                   />
                 </div>
+                <div id="map" style="height:400px;"></div>
+
                 <div class="lg:col-span-1 col-span-2">
                   <label
                     for=""
@@ -1011,6 +864,7 @@
 				            { id: 'youtube', name: 'youtube', label: 'Youtube', placeholder: 'e.g. www.youtube/accommo.com' },
 				            { id: 'twitter', name: 'twitter', label: 'Twitter', placeholder: 'e.g. www.twitter/accommo.com' },
 				            { id: 'dribbble', name: 'dribbble', label: 'Dribbble', placeholder: 'e.g. www.dribbble/accommo.com' },
+                    { id: 'whatsapp', name: 'whatsapp', label: 'Whatsapp', placeholder: 'e.g. www.whatsapp/accommo.com' },
 				        ]}"
                 class="grid lg:grid-cols-2 grid-cols-1 gap-7"
               >
@@ -1093,46 +947,13 @@
                 <h4
                   class="text-gray-700 dark:text-gray-300 text-xl font-semibold"
                 >
-                  Tags/Keyword
+                  Tags
                 </h4>
-                <!-- custom-checkbox  -->
-                <input type="checkbox" name="" class="custom-switch" />
               </div>
               <div
-                x-data="{ tags: [
-				            { id: 'data0', label: 'Best rental area' ,class:'check_tag' },
-				            { id: 'data1', label: 'Top rated nearby' ,class:'check_tag' },
-				            { id: 'data2', label: 'Nearby Restaurant' ,class:'check_tag' },
-				            { id: 'data3', label: 'Buy apartment' ,class:'check_tag' },
-				            { id: 'data4', label: 'Top Restaurants' ,class:'check_tag' },
-				            { id: 'data5', label: 'Delicious food' ,class:'check_tag' },
-				            { id: 'data6', label: 'Parking slot free' ,class:'check_tag' },
-				            { id: 'data7', label: 'Free internet' ,class:'check_tag' },
-				            { id: 'data8', label: 'Amazing place' ,class:'check_tag' },
-				            { id: 'data9', label: 'Resonable price range' ,class:'check_tag' },
-				            { id: 'data10', label: 'Secured apartmen' ,class:'check_tag' },
-				            { id: 'data11', label: 'Top events' ,class:'check_tag' },
-				        ]}"
+                id="alltags"
                 class="grid xl:grid-cols-6 lg:grid-cols-4 sm:grid-cols-2 grid-cols-1"
-              >
-                <template x-for="tag in tags" :key="tag.id">
-                  <div class="mb-5 flex items-center">
-                    <input
-                      :id="tag.id"
-                      type="checkbox"
-                      name="tag.name"
-                      :class="tag.class"
-                      class="checkbox-checked peer appearance-none h-4 w-4 border-[2px] border-gray-500 dark:border-gray-400 rounded-[5px] bg-white dark:bg-foreground bg-cover bg-center checked:border-0 focus:outline-none mr-3 cursor-pointer"
-                    />
-                    <label
-                      :for="tag.id"
-                      x-text="tag.label"
-                      class="text-sm text-gray-700 dark:text-gray-400 peer-checked:text-blue-500 dark:peer-checked:text-blue-500"
-                    >
-                    </label>
-                  </div>
-                </template>
-              </div>
+              ></div>
             </div>
             <!-- Attachment form -->
             <div
@@ -1191,123 +1012,39 @@
                   <div class="bg-blue-500 text-white p-4 rounded-lg">
                     Browse Images
                   </div>
-                  <input type="file" id="upload-img" class="hidden" />
+                  <input type="file" multiple id="upload-img" class="hidden" />
                 </label>
+              </div>
+
+              <div class="mt-5">
+                <label
+                  for=""
+                  class="text-base text-gray-700 dark:text-gray-200 block mb-3"
+                >
+                  Profile Image:</label
+                >
+                <input
+                  type="file"
+                  id="profileimage"
+                  class="placeholder:text-gray-700 text-gray-700 dark:bg-foreground dark:border-gray-800 rounded-lg px-4 py-[0.969rem] shadow-input border focus:outline-none w-full mb-4"
+                />
+              </div>
+              <div class="mt-5">
+                <label
+                  for=""
+                  class="text-base text-gray-700 dark:text-gray-200 block mb-3"
+                >
+                  Cover Image:</label
+                >
+                <input
+                  type="file"
+                  id="coverimage"
+                  class="placeholder:text-gray-700 text-gray-700 dark:bg-foreground dark:border-gray-800 rounded-lg px-4 py-[0.969rem] shadow-input border focus:outline-none w-full mb-4"
+                />
               </div>
             </div>
             <!-- Overview form -->
-            <div
-              class="bg-white shadow-front-2 dark:bg-foreground rounded-lg p-6 mb-7"
-            >
-              <div class="flex justify-between items-center mb-7">
-                <h4
-                  class="text-gray-700 dark:text-gray-300 text-xl font-semibold"
-                >
-                  Overiew
-                </h4>
-                <!-- custom-checkbox  -->
-                <input type="checkbox" name="" class="custom-switch" />
-              </div>
-              <div
-                x-data="{ inputs: [
-				            { id: 'bathroom', type: 'text', name: 'bathroom', label: 'Bathroom', placeholder: 'How many bathrooms?' },
-				            { id: 'bedroom', type: 'text', name: 'bedroom', label: 'Bedroom', placeholder: 'How many bedrooms?' },
-				            { id: 'garage', type: 'text', name: 'garage', label: 'Garage or Parking Slot', placeholder: 'How many slot?' },
-				            { id: 'living', type: 'text', name: 'living', label: 'Living Area', placeholder: 'How many slot?' },
-				            { id: 'date', type: 'date', name: 'date', label: 'Publish Date', placeholder: 'f' },
-				            { id: 'year', type: 'text', name: 'year', label: 'Year in Built', placeholder: '2020' },
-				        ]}"
-                class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-7"
-              >
-                <template x-for="input in inputs" :key="input.id">
-                  <div class="lg:col-span-1 col-span-2">
-                    <label
-                      :for="input.name"
-                      x-text="input.label"
-                      class="text-base text-gray-700 dark:text-gray-200 block mb-3"
-                    ></label>
-                    <input
-                      :id="input.name"
-                      :type="input.type"
-                      :name="input.name"
-                      :placeholder="input.placeholder"
-                      class="border border-gray-200 dark:border-gray-800 text-gray-400 text-sm rounded px-4 dark:bg-foreground py-[15px] shadow-input hover:border hover:border-blue-200 focus:border-blue-200 focus:outline-none w-full mb-4"
-                    />
-                  </div>
-                </template>
-                <!-- <div class="lg:col-span-1 col-span-2">
-							<label
-								for=""
-								class="text-base text-gray-700 dark:text-gray-200 block mb-3"
-								>Bathroom</label
-							>
-							<input
-								type="text"
-								class="border border-gray-200 dark:border-gray-800 dark:text-gray-300 rounded-lg px-4 dark:bg-foreground py-[15px] shadow-input hover:border hover:border-blue-200 focus:border-blue-200 focus:outline-none w-full mb-4"
-								placeholder="How many bathrooms?"
-							/>
-						</div>
-						<div class="lg:col-span-1 col-span-2">
-							<label
-								for=""
-								class="text-base text-gray-700 dark:text-gray-200 block mb-3"
-								>Bedroom
-							</label>
-							<input
-								type="text"
-								class="border border-gray-200 dark:border-gray-800 dark:text-gray-300 rounded-lg px-4 dark:bg-foreground py-[15px] shadow-input hover:border hover:border-blue-200 focus:border-blue-200 focus:outline-none w-full mb-4"
-								placeholder="How many bedrooms?"
-							/>
-						</div>
-						<div class="lg:col-span-1 col-span-2">
-							<label
-								for=""
-								class="text-base text-gray-700 dark:text-gray-200 block mb-3"
-								>Garage or Parking Slot
-							</label>
-							<input
-								type="text"
-								class="border border-gray-200 dark:border-gray-800 dark:text-gray-300 rounded-lg px-4 dark:bg-foreground py-[15px] shadow-input hover:border hover:border-blue-200 focus:border-blue-200 focus:outline-none w-full mb-4"
-								placeholder="How many slot?"
-							/>
-						</div>
-						<div class="lg:col-span-1 col-span-2">
-							<label
-								for=""
-								class="text-base text-gray-700 dark:text-gray-200 block mb-3"
-								>Living Area
-							</label>
-							<input
-								type="text"
-								class="border border-gray-200 dark:border-gray-800 dark:text-gray-300 rounded-lg px-4 dark:bg-foreground py-[15px] shadow-input hover:border hover:border-blue-200 focus:border-blue-200 focus:outline-none w-full mb-4"
-								placeholder="How many slot?"
-							/>
-						</div>
-						<div class="lg:col-span-1 col-span-2">
-							<label
-								for=""
-								class="text-base text-gray-700 dark:text-gray-200 block mb-3"
-								>Publish Date
-							</label>
-							<input
-								type="date"
-								class="border border-gray-200 dark:border-gray-800 dark:text-gray-300 rounded-lg px-4 dark:bg-foreground py-[15px] shadow-input hover:border hover:border-blue-200 focus:border-blue-200 focus:outline-none w-full mb-4"
-							/>
-						</div>
-						<div class="lg:col-span-1 col-span-2">
-							<label
-								for=""
-								class="text-base text-gray-700 dark:text-gray-200 block mb-3"
-								>Year in Built
-							</label>
-							<input
-								type="text"
-								class="border border-gray-200 dark:border-gray-800 dark:text-gray-300 rounded-lg px-4 dark:bg-foreground py-[15px] shadow-input hover:border hover:border-blue-200 focus:border-blue-200 focus:outline-none w-full mb-4"
-								placeholder="2020"
-							/>
-						</div> -->
-              </div>
-            </div>
+
             <!-- Features form -->
             <div
               class="bg-white shadow-front-2 dark:bg-foreground rounded-lg p-6 mb-7"
@@ -1318,78 +1055,11 @@
                 >
                   Features
                 </h4>
-                <!-- custom-checkbox  -->
-                <input type="checkbox" name="" class="custom-switch" />
               </div>
               <div
-                x-data="{ tags: [
-				            { id: 'dada0', label: 'Equipped Kitchen' ,class:'check_feature' },
-				            { id: 'dada1', label: 'Gym' ,class:'check_feature' },
-				            { id: 'dada2', label: 'Laundry' ,class:'check_feature' },
-				            { id: 'dada3', label: 'Basketball court' ,class:'check_feature' },
-				            { id: 'dada4', label: 'Water' ,class:'check_feature' },
-				            { id: 'dada5', label: 'Vitamin C' ,class:'check_feature' },
-				            { id: 'dada6', label: 'Vitamin D' ,class:'check_feature' },
-				            { id: 'dada7', label: 'Vitamin A' ,class:'check_feature' },
-				            { id: 'dada8', label: 'Iron' ,class:'check_feature' },
-				            { id: 'dada9', label: 'Copper' ,class:'check_feature' },
-				            { id: 'dada10', label: 'Calsium' ,class:'check_feature' },
-				            { id: 'dada11', label: 'Protein' ,class:'check_feature' },
-				            { id: 'dada12', label: 'Gym' ,class:'check_feature' },
-				            { id: 'dada13', label: 'Laundry' ,class:'check_feature' },
-				            { id: 'dada14', label: 'Basketball court' ,class:'check_feature' },
-				            { id: 'dada15', label: 'Water' ,class:'check_feature' },
-				            { id: 'dada16', label: 'Vitamin C' ,class:'check_feature' },
-				            { id: 'dada17', label: 'Vitamin D' ,class:'check_feature' },
-				            { id: 'dada18', label: 'Vitamin A' ,class:'check_feature' },
-				            { id: 'dada19', label: 'Iron' ,class:'check_feature' },
-				            { id: 'dada20', label: 'Copper' ,class:'check_feature' },
-				            { id: 'dada21', label: 'Calsium' ,class:'check_feature' },
-				            { id: 'dada22', label: 'Protein' ,class:'check_feature' },
-				            { id: 'dada23', label: 'Iron' ,class:'check_feature' },
-				            { id: 'dada24', label: 'Gym' ,class:'check_feature' },
-				            { id: 'dada25', label: 'Laundry' ,class:'check_feature' },
-				            { id: 'dada26', label: 'Basketball court' ,class:'check_feature' },
-				            { id: 'dada27', label: 'Water' ,class:'check_feature' },
-				            { id: 'dada28', label: 'Vitamin C' ,class:'check_feature' },
-				            { id: 'dada29', label: 'Vitamin D' ,class:'check_feature' },
-				            { id: 'dada30', label: 'Vitamin A' ,class:'check_feature' },
-				            { id: 'dada31', label: 'Iron' ,class:'check_feature' },
-				            { id: 'dada32', label: 'Copper' ,class:'check_feature' },
-				            { id: 'dada33', label: 'Calsium' ,class:'check_feature' },
-				            { id: 'dada34', label: 'Protein' ,class:'check_feature' },
-				            { id: 'dada35', label: 'Gym' ,class:'check_feature' },
-				            { id: 'dada36', label: 'Laundry' ,class:'check_feature' },
-				            { id: 'dada37', label: 'Basketball court' ,class:'check_feature' },
-				            { id: 'dada38', label: 'Water' ,class:'check_feature' },
-				            { id: 'dada39', label: 'Vitamin C' ,class:'check_feature' },
-				            { id: 'dada40', label: 'Vitamin D' ,class:'check_feature' },
-				            { id: 'dada41', label: 'Vitamin A' ,class:'check_feature' },
-				            { id: 'dada42', label: 'Iron' ,class:'check_feature' },
-				            { id: 'dada43', label: 'Copper' ,class:'check_feature' },
-				            { id: 'dada44', label: 'Calsium' ,class:'check_feature' },
-				            { id: 'dada45', label: 'Protein' ,class:'check_feature' },
-				            { id: 'dada46', label: 'Iron' ,class:'check_feature' },
-				        ]}"
+                id="properties"
                 class="grid xl:grid-cols-6 lg:grid-cols-4 sm:grid-cols-2 grid-cols-1"
-              >
-                <template x-for="tag in tags" :key="tag.id">
-                  <div class="mb-5 flex items-center">
-                    <input
-                      :id="tag.id"
-                      type="checkbox"
-                      :class="tag.class"
-                      class="checkbox-checked peer appearance-none h-4 w-4 border-[2px] border-gray-500 dark:border-gray-400 rounded-[5px] bg-white dark:bg-foreground bg-cover bg-center checked:border-0 focus:outline-none mr-3 cursor-pointer"
-                    />
-                    <label
-                      :for="tag.id"
-                      x-text="tag.label"
-                      class="text-sm text-gray-700 dark:text-gray-400 peer-checked:text-blue-500 dark:peer-checked:text-blue-500"
-                    >
-                    </label>
-                  </div>
-                </template>
-              </div>
+              ></div>
             </div>
             <!-- Schedule form -->
             <div
@@ -1401,8 +1071,6 @@
                 >
                   Time Schedule
                 </h4>
-                <!-- custom-checkbox  -->
-                <input type="checkbox" name="" class="custom-switch" />
               </div>
               <div class="flex flex-col">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -1432,13 +1100,6 @@
                         <tbody
                           x-data="{ schedules: [
 				                                { 
-				                                    id: 'Sunday', 
-                                            ids:['sunday','sundays'],
-				                                    day: 'Sunday', 
-				                                    start: ['Morning 11.00 AM', 'Value 1', 'Value 2'],
-				                                    end: ['Morning 11.00 PM', 'Value 1', 'Value 2'],
-				                                },
-				                                { 
 				                                    id: 'Monday', 
                                             ids:['monday','mondays'],
 				                                    day: 'Monday', 
@@ -1447,28 +1108,28 @@
 				                                },
 				                                { 
 				                                    id: 'Tuesday', 
-                                           ids:['tuesday','tuesdays'],
+                                            ids:['tuesday','tuesdays'],
 				                                    day: 'Tuesday', 
 				                                    start: ['Morning 11.00 AM', 'Value 1', 'Value 2'],
 				                                    end: ['Morning 11.00 PM', 'Value 1', 'Value 2'],
 				                                },
 				                                { 
 				                                    id: 'Wednesday', 
-                                          ids:['wednesday','wednesdays'],
+                                           ids:['wednesday','wednesdays'],
 				                                    day: 'Wednesday', 
 				                                    start: ['Morning 11.00 AM', 'Value 1', 'Value 2'],
 				                                    end: ['Morning 11.00 PM', 'Value 1', 'Value 2'],
 				                                },
 				                                { 
 				                                    id: 'Thursday', 
-                                            ids:['thursday','thursdays'],
+                                          ids:['thursday','thursdays'],
 				                                    day: 'Thursday', 
 				                                    start: ['Morning 11.00 AM', 'Value 1', 'Value 2'],
 				                                    end: ['Morning 11.00 PM', 'Value 1', 'Value 2'],
 				                                },
 				                                { 
 				                                    id: 'Friday', 
-                                           ids:['friday','fridays'],
+                                            ids:['friday','fridays'],
 				                                    day: 'Friday', 
 				                                    start: ['Morning 11.00 AM', 'Value 1', 'Value 2'],
 				                                    end: ['Morning 11.00 PM', 'Value 1', 'Value 2'],
@@ -1477,6 +1138,13 @@
 				                                    id: 'Saturday', 
                                            ids:['saturday','saturdays'],
 				                                    day: 'Saturday', 
+				                                    start: ['Morning 11.00 AM', 'Value 1', 'Value 2'],
+				                                    end: ['Morning 11.00 PM', 'Value 1', 'Value 2'],
+				                                },
+				                                { 
+				                                    id: 'Sunday', 
+                                           ids:['sunday','sundays'],
+				                                    day: 'Sunday', 
 				                                    start: ['Morning 11.00 AM', 'Value 1', 'Value 2'],
 				                                    end: ['Morning 11.00 PM', 'Value 1', 'Value 2'],
 				                                },
@@ -1495,60 +1163,25 @@
                                 class="text-gray-900 font-light mb-5 px-6 py-1 whitespace-nowrap"
                               >
                                 <div class="relative">
-                                  <select
+                                  <input
+                                    type="time"
+                                    max="12:00"
                                     :id="schedule.ids[0]"
                                     x-bind:name="schedule.day + 'start'"
                                     class="p-4 border border-gray-200 text-gray-400 text-sm dark:bg-foreground dark:border-gray-800 appearance-none rounded shadow-input hover:border hover:border-blue-200 focus:border-blue-200 focus:outline-none w-full"
-                                  >
-                                    <template x-for="start in schedule.start">
-                                      <option
-                                        x-text="start"
-                                        :value="start"
-                                      ></option>
-                                    </template>
-                                  </select>
-                                  <svg
-                                    width="10"
-                                    height="6"
-                                    viewBox="0 0 10 6"
-                                    fill="currentColor"
-                                    class="w-3 h-3 text-gray-400 absolute right-3 top-0 bottom-0 my-auto z-10"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M4.99982 6.00001C4.79513 6.00001 4.59034 5.92467 4.43435 5.774L0.434558 1.91686C0.122074 1.61552 0.122074 1.12735 0.434558 0.826011C0.747042 0.524671 1.25327 0.524671 1.56575 0.826011L4.99982 4.13893L8.43464 0.826613C8.74713 0.525274 9.25335 0.525274 9.56583 0.826613C9.87832 1.12795 9.87832 1.61612 9.56583 1.91746L5.56604 5.7746C5.4098 5.92527 5.20481 6.00001 4.99982 6.00001Z"
-                                    />
-                                  </svg>
+                                  />
                                 </div>
                               </td>
                               <td
                                 class="text-gray-900 font-light px-6 py-1 whitespace-nowrap"
                               >
                                 <div class="relative mb-4">
-                                  <select
+                                  <input
+                                    type="time"
                                     :id="schedule.ids[1]"
                                     x-bind:name="schedule.day + 'end'"
                                     class="p-4 border border-gray-200 text-gray-400 text-sm dark:bg-foreground dark:border-gray-800 appearance-none rounded shadow-input hover:border hover:border-blue-200 focus:border-blue-200 focus:outline-none w-full"
-                                  >
-                                    <template x-for="end in schedule.end">
-                                      <option
-                                        x-text="end"
-                                        :value="end"
-                                      ></option>
-                                    </template>
-                                  </select>
-                                  <svg
-                                    width="10"
-                                    height="6"
-                                    viewBox="0 0 10 6"
-                                    fill="currentColor"
-                                    class="w-3 h-3 text-gray-400 absolute right-3 top-0 bottom-0 my-auto z-10"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M4.99982 6.00001C4.79513 6.00001 4.59034 5.92467 4.43435 5.774L0.434558 1.91686C0.122074 1.61552 0.122074 1.12735 0.434558 0.826011C0.747042 0.524671 1.25327 0.524671 1.56575 0.826011L4.99982 4.13893L8.43464 0.826613C8.74713 0.525274 9.25335 0.525274 9.56583 0.826613C9.87832 1.12795 9.87832 1.61612 9.56583 1.91746L5.56604 5.7746C5.4098 5.92527 5.20481 6.00001 4.99982 6.00001Z"
-                                    />
-                                  </svg>
+                                  />
                                 </div>
                               </td>
                             </tr>
@@ -1583,13 +1216,20 @@
 	  Design & Developed with ❤️
 	  <a href="www.ui-lib.com" class="text-blue-500">@ui-lib</a>
 	</footer> -->
-      <!-- All scripts -->
-      <script src="assets/js/others/plugins-core/handy-collapse.js"></script>
-      <script src="assets/js/others/plugins-script/handy-collapse.js"></script>
-      <script src="assets/js/others/plugins-core/perfect-scrollbar.js"></script>
-      <script src="assets/js/others/plugins-script/perfect-scrollbar.js"></script>
+     
     </main>
+     <!-- All scripts -->
+     <script src="assets/js/others/plugins-core/handy-collapse.js"></script>
+     <script src="assets/js/others/plugins-script/handy-collapse.js"></script>
+     <script src="assets/js/others/plugins-core/perfect-scrollbar.js"></script>
+     <script src="assets/js/others/plugins-script/perfect-scrollbar.js"></script>
     <script src="assets/js/others/plugins-core/alpine.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+    <!-- Firebase Storage -->
+    <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-storage.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="./js/main.js"></script>
   </body>
