@@ -1,8 +1,32 @@
 const tbody = document.getElementById("tbody")
+
 let properties = [];
 
+
+const userEmail = JSON.parse(sessionStorage.getItem('user'));
+if (userEmail) {
+    document.getElementById('userprofileimg').src = userEmail.image;
+    document.getElementById('useremail').innerHTML = userEmail.email
+    document.getElementById('profilepic').src = userEmail.image;
+    document.getElementById('nameuser').innerHTML = userEmail.name;
+    document.getElementById('emuser').innerHTML = userEmail.email;
+
+
+} else {
+    window.location.href = '/sign-in.html'
+}
+
+
+
+document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    alert("User logout")
+    sessionStorage.removeItem('user')
+    location.reload()
+
+})
+
 const getProperties = async()=>{
-    let req = await fetch("http://localhost:3001/api/properties")
+    let req = await fetch("https://adminpanelback.onrender.com/api/properties")
     let res = await req.json()
     properties = [...res]
     console.log(properties);
@@ -13,7 +37,7 @@ const getProperties = async()=>{
         <tr class="align-middle hover:bg-gray-50 dark:hover:bg-background">
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${property.name} </td>
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3"> 
-            <img src= ${property.icon} alt = ${property.name}  class="w-12 h-12">
+           ${property.icon}
         </td>
         
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-gray-300 px-6 py-3">
@@ -37,15 +61,8 @@ getProperties()
 
 let findId;
 let findPropertyById;
-let getIconUrl;
-icon.addEventListener('change', (e) => {
-    const reader = new FileReader()
-    reader.addEventListener('load', (e) => {
-      getIconUrl= reader.result;
-    });
-    reader.readAsDataURL(e.target.files[0]);
-    console.log(e.target.files);
-})
+
+const pattern =  /^[a-zA-Z0-9]+$/;
 
 function toggleModal(id) {
     findId = id
@@ -54,23 +71,26 @@ function toggleModal(id) {
         findPropertyById = properties.find( property => property._id === id)
       if (findPropertyById) {
           updateName.value = findPropertyById.name
-        //   updateIcon = findPropertyById.icon
-        //   iconu elave etmek lazimdi
+          updateFeatureIcon.value = findPropertyById.icon
       }
     }
     document.getElementById('modal').classList.toggle('hidden')
   }
 //  update
   const updateProperty = async () => {
-    if (updateName.value == findPropertyById.name ) {
+    if (updateName.value == findPropertyById.name && updateFeatureIcon.value == findPropertyById.icon ) {
       alert('Please update any input')
+    }else if(updateName.value == '' || updateFeatureIcon.value == '') {
+      alert("Please fill input or inputs")
+    }else if(pattern.test(updateName.value) != true) {
+      alert("Please fill input or inputs")
     } else {
       try {
         const updatePropertyObj = {
           name: updateName.value,
-        //  icon : updateIcon  elave etmek lazimdi
+          icon:updateFeatureIcon.value
         }
-        const request = await fetch(`http://localhost:3001/api/updateproperty/${findId}`, {
+        const request = await fetch(`https://adminpanelback.onrender.com/api/updateproperty/${findId}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -84,6 +104,7 @@ function toggleModal(id) {
         } else {
           const response = await request.json()
           console.log(response);
+          alert("Updated succesfully !")
           location.reload()
         }
       }catch(err){
@@ -92,18 +113,29 @@ function toggleModal(id) {
       }
       document.getElementById('modal').classList.toggle('hidden')
   }
-  updateEventBtn.addEventListener('click', updateProperty)
+  document.getElementById('updateEventBtn').addEventListener('click', updateProperty)
 
   // delete
 
   async function deleteElement(id){
-    console.log(id);
-    const request = await fetch(`http://localhost:3001/api/deleteProperty/${id}`, {
+    try {
+      console.log(id);
+    const request = await fetch(`https://adminpanelback.onrender.com/api/deleteProperty/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json"
     },
 
   })
-  location.reload()
+
+  if(!request.ok) {
+    throw new Error("Request is failed !")
+  }else {
+    alert("Delete feature successfully !")
+    location.reload()
+  }
+ 
+    }catch(err) {
+      alert(err.message)
+    }
 }

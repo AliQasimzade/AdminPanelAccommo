@@ -6,7 +6,7 @@
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 <head>
   <meta charset="utf-8" />
-  <title> Update Company </title>
+  <title> All Locations </title>
   <meta name="description" content="Speed up your development with a complete and scalable gulpjs based build system that scaffolds the project for you." />
   <meta name="copyright" content="Copyright Gulp Tailwind Starter 2023. All Rights Reserved." />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -88,7 +88,7 @@
               </svg> Add Category </a>
           </li>
           <li class="sidebar-link flex items-center mb-2">
-            <a href="dashboard-all-locations.html" class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500">
+            <a href="dashboard-all-locations.html" class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500 active">
               <svg viewBox="0 0 24 24" class="mr-2 w-4 h-4">
                 <path fill="currentColor" d="M12 1.5c-4.142 0-7.5 3.358-7.5 7.5 0 4.071 6.755 14.535 7.5 15.522 0.745-0.987 7.5-11.451 7.5-15.522 0-4.142-3.358-7.5-7.5-7.5zm0 10c-1.933 0-3.5-1.567-3.5-3.5s1.567-3.5 3.5-3.5 3.5 1.567 3.5 3.5-1.567 3.5-3.5 3.5z"/>
               </svg> All Locations </a>
@@ -131,7 +131,7 @@
           </li>
              
           <li   class="sidebar-link flex items-center mb-2">
-            <a href="dashboard-update-company.html" class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500 active">
+            <a href="dashboard-update-company.html" class="flex items-center flex-1 py-2 px-3 rounded-lg hover:bg-gray-700 hover:text-blue-500">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="mr-2 w-5 h-5" xmlns="http://www.w3.org/2000/svg">
                 <path d="M10 12.715C10 10.2182 12.0156 8.19252 14.5 8.19252C16.9844 8.19252 19 10.2182 19 12.715C19 15.2118 16.9844 17.2375 14.5 17.2375C12.0156 17.2375 10 15.2118 10 12.715ZM16.6031 12.0649C16.8 11.8702 16.8 11.5498 16.6031 11.3551C16.4094 11.1573 16.0906 11.1573 15.8969 11.3551L14 13.2615L13.1031 12.3601C12.9094 12.1623 12.5906 12.1623 12.3969 12.3601C12.2 12.5548 12.2 12.8752 12.3969 13.0699L13.6469 14.3262C13.8406 14.524 14.1594 14.524 14.3531 14.3262L16.6031 12.0649Z" fill="#98A2B3" />
                 <path d="M2.58531 2.99571C2.83938 2.48504 3.35875 2.1625 3.92719 2.1625H7.5V6.1825H1L2.58531 2.99571ZM8.5 6.1825V2.1625H12.0719C12.6406 2.1625 13.1594 2.48504 13.4156 2.99571L15 6.1825H8.5ZM14 7.20949C11.1969 7.46388 9 9.83191 9 12.715C9 14.0498 9.47188 15.2778 10.2563 16.2325H3C1.89531 16.2325 1 15.3311 1 14.2225V7.1875H14V7.20949Z" fill="currentColor" />
@@ -266,24 +266,58 @@
             </svg>
           </div>
           <div class="dropdown mr-3" data-dropdown>
-            <button class="link hover:text-blue-500 flex items-center" data-dropdown-button>
-              <div class="relative lg:mr-3 mr-0">
-                 <img
-              class="w-10 h-10 rounded-full border border-white"
-              src="assets/img/faces/2.jpg"
-              alt=""
-              id="userprofileimg"
-            />
-                <div class="w-2 h-2 bg-green-500 rounded-full border absolute bottom-0 right-0"></div>
-              </div>
-               <span id="useremail" data-dropdown-button class="lg:block hidden"
+             <button
+                class="link flex items-center"
+                data-dropdown-button
+              >
+                <div class="relative lg:mr-3 mr-0">
+                  <img
+                    class="w-8 h-8 rounded-full border border-white"
+                    src="assets/img/faces/10.jpg"
+                    data-dropdown-button
+                    alt=""
+                    id="userprofileimg"
+                  />
+                  <div
+                    class="w-2 h-2 bg-green-500 rounded-full border absolute bottom-0 right-0"
+                  ></div>
+                </div>
+                <span id="useremail" data-dropdown-button class="lg:block hidden"
                   >My Account</span
                 >
+              </button>
 
-            </button>
           </div>
         
         </div>
+      </div>
+    </div>
+
+
+    <div class="fixed z-10 overflow-y-auto top-0 flex items-center justify-center h-full w-full left-0 bg-black bg-opacity-50 hidden" id="modal">
+      <div class="flex items-center justify-center static z-[9999] h-full w-full pt-4 px-4 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity flex items-center justify-center top-[90px] ">
+          <div class="absolute inset-0 bg-slate-400" >
+        </div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
+        <div class="inline-block align-center bg-white rounded-lg text-left overflow-scroll shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4  flex  flex-col overflow-y-auto" style="height: 350px; max-height:680px">
+          <div class="flex flex-col">
+            <label>Name</label>
+            <input id="updateLocName" type="text" class=" bg-gray-100 p-2 mt-2 mb-3" />
+          </div>
+
+      <div class="flex flex-col">
+        <label>Image</label>
+        <input id="updateLocImage" type="file" class=" bg-gray-100 p-2 mt-2 mb-3" />
+      </div>
+          </div>
+          <div class="bg-gray-200 px-4 py-3 text-right">
+            <button type="button" class="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2" onclick="toggleModal()"><i class="fas fa-times"></i> Cancel</button>
+            <button id="updateLocBtn" type="button" class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 mr-2"><i class="fas fa-plus"></i> Update</button>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
     <div class="dashboard-content transition-all duration-200 dark:bg-background lg:ml-64 ml-0 mt-20 min-h-[calc(100vh-80px)] p-7">
@@ -294,233 +328,39 @@
               <a href="#" class="font-medium text-gray-700 dark:text-gray-200"> Dashboard </a>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-3 h-3 mx-2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-              </svg> <span>Update Company</span>
+              </svg> <span>All Locations</span>
             </div>
            
           </div>
-          <!-- <div x-data="{ messages: [
-						{ 
-							id: 1, 
-							name: 'Gage Paquette', 
-							image: '/assets/img/faces/2.jpg', 
-							description: 'Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat.', 
-							status: 'Unread', 
-							time: '1 hour ago' 
-						},
-						{ 
-							id: 2, 
-							name: 'Dorrick Trop', 
-							image: '/assets/img/faces/1.jpg', 
-							description: 'Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat.', 
-							status: 'Unread', 
-							time: '1 hour ago' 
-						},
-						{ 
-							id: 3, 
-							name: 'Carley Ritchie', 
-							image: '/assets/img/faces/3.jpg', 
-							description: 'Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat.', 
-							status: 'Read', 
-							time: '1 hour ago' 
-						},
-						{ 
-							id: 4, 
-							name: 'Julio Bosco', 
-							image: '/assets/img/faces/5.jpg', 
-							description: 'Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat.', 
-							status: 'Unread', 
-							time: '1 hour ago' 
-						},
-						{ 
-							id: 5, 
-							name: 'Oda Kling', 
-							image: '/assets/img/faces/9.jpg', 
-							description: 'Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat.', 
-							status: 'Read', 
-							time: '1 hour ago' 
-						},
-						{ 
-							id: 6, 
-							name: 'Dominic Mitchell', 
-							image: '/assets/img/faces/10.jpg', 
-							description: 'Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat.', 
-							status: 'Read', 
-							time: '1 hour ago' 
-						},
-						{ 
-							id: 7, 
-							name: 'Zachary James', 
-							image: '/assets/img/faces/15.jpg', 
-							description: 'Hello, I want to talk about your great listing! Morbi velit eros, sagittis in facilisis non, rhoncus et erat.', 
-							status: 'Read', 
-							time: '1 hour ago' 
-						},
-					]}" class="bg-white shadow-front-2 dark:bg-foreground rounded-lg">
-            <div class="flex flex-wrap justify-between items-center mb-4 px-6 pt-6">
-              <h4 class="text-gray-700 dark:text-gray-300 text-xl font-semibold mr-5 sm:mb-0 mb-3"> Inbox </h4>
-              <select name="cars" class="px-4 py-2 mr-0 text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-800 rounded-lg dark:bg-foreground focus:outline-none">
-                <option value="volvo">Last Months</option>
-                <option value="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option>
-              </select>
-            </div>
-            <!-- inbox  -->
-            <!-- <template x-for="message in messages" :key="message.id">
-              <div :class="message.id % 2 === 1 && 'bg-gray-50'" class="flex justify-between items-start flex-wrap dark:bg-background p-6">
-                <div class="flex mr-10 flex-wrap">
-                  <img :alt="message.name" :src="message.image" class="w-14 h-14 rounded-full mr-4" />
-                  <div class="">
-                    <div class="flex items-center mb-1 flex-wrap">
-                      <p x-text="message.name" class="font-medium text-gray-700 dark:text-gray-100 text-lg mr-2"></p>
-                      <template x-if="message.status === 'Unread'">
-                        <small x-text="message.status" class="bg-green-100 text-green-500 font-medium text-xs px-3 py-1 rounded-lg">
-                        </small>
-                      </template>
-                    </div>
-                    <p x-text="message.description" class="text-gray-500 text-sm dark:text-gray-400"></p>
-                  </div>
-                </div>
-                <p x-text="message.time" class="text-gray-500 text-sm dark:text-gray-400 flex-shrink-0"></p>
-              </div>
-            </template> -->
-            <!-- rounded pagination  -->
-            <!-- <div class="flex justify-center p-6">
-              <div class="flex items-center">
-                <a href="#" class="rounded-full w-8 h-8 flex justify-center items-center border border-gray-200 dark:border-gray-800 mr-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="h-4 w-4 text-gray-400">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                  </svg> </a>
-                <a href="#" class="rounded-full w-8 h-8 flex justify-center items-center border border-gray-200 dark:border-gray-800 bg-blue-500 text-white mr-4">1</a>
-                <a href="#" class="rounded-full w-8 h-8 flex justify-center items-center border border-gray-200 dark:border-gray-800 hover:bg-blue-500 dark:hover:bg-blue-500 dark:hover:text-white text-gray-500 dark:text-gray-300 hover:text-white mr-4">2</a>
-                <a href="#" class="rounded-full w-8 h-8 flex justify-center items-center border border-gray-200 dark:border-gray-800 mr-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="h-4 w-4 text-blue-500">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                  </svg> </a>
-              </div>
-            </div> -->
-
-            <div class="overflow-x-auto p-5">
-              <table class="min-w-full">
-                <thead class="">
-                  <tr class="">
-                    <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 dark:bg-background items-center flex font-medium text-gray-700 dark:text-gray-100 px-6 py-3 text-left"> Image </th>
-                    <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 whitespace-nowrap dark:bg-background font-medium text-gray-700 dark:text-gray-100 px-6 py-3 text-left"> Splash screen </th>
-                    <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 whitespace-nowrap dark:bg-background font-medium text-gray-700 dark:text-gray-100 px-6 py-3 text-left"> Facebook</th>
-                    <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 whitespace-nowrap dark:bg-background font-medium text-gray-700 dark:text-gray-100 px-6 py-3 text-left"> Instagram</th>
-                    <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 whitespace-nowrap dark:bg-background font-medium text-gray-700 dark:text-gray-100 px-6 py-3 text-left"> Youtube</th>
-                    <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 whitespace-nowrap dark:bg-background font-medium text-gray-700 dark:text-gray-100 px-6 py-3 text-left"> Linkedin</th>
-                    <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 whitespace-nowrap dark:bg-background font-medium text-gray-700 dark:text-gray-100 px-6 py-3 text-left"> Phone</th>
-                    <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 whitespace-nowrap dark:bg-background font-medium text-gray-700 dark:text-gray-100 px-6 py-3 text-left"> Email</th>
-                    <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 whitespace-nowrap dark:bg-background font-medium text-gray-700 dark:text-gray-100 px-6 py-3 text-left"> Adress</th>
-                    <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 whitespace-nowrap dark:bg-background font-medium text-gray-700 dark:text-gray-100 px-6 py-3 text-left"> Privacy Policy</th>
-                    <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 whitespace-nowrap dark:bg-background font-medium text-gray-700 dark:text-gray-100 px-6 py-3 text-left"> Privacy Policy</th>
-  
-  
-  
-                    <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 whitespace-nowrap dark:bg-background font-medium text-gray-700 dark:text-gray-100 px-6 pb-3 text-left"> Action </th>
-                  </tr>
-                </thead>
-                <tbody id="tbody">
-                  <img src="" alt=""  class="w-11">
-          
-                </tbody>
-              </table>
-            </div>
-          
-
-            <div class="fixed z-10 overflow-y-auto top-0 flex items-center justify-center h-full w-full left-0 bg-black bg-opacity-50 hidden" id="modal">
-              <div class="flex items-center justify-center static z-[9999] h-full w-full pt-4 px-4 text-center sm:block sm:p-0">
-                <div class="fixed inset-0 transition-opacity flex items-center justify-center top-[90px] ">
-                  <div class="absolute inset-0 bg-slate-400" >
-                </div>
-                <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
-                <div class="inline-block align-center bg-white rounded-lg text-left overflow-scroll shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-                  <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4  flex  flex-col overflow-y-auto" style="height: 350px; max-height:680px">
-                    <div class="flex flex-col">
-                      <label>Image</label>
-                      <input id="updateIcon" type="file" class=" bg-gray-100 p-2 mt-2 mb-3"/>
-                    </div>
-
-                    <div class="flex flex-col">
-                      <label>Splash screen</label>
-                      <input id="updateImage" type="file" class=" bg-gray-100 p-2 mt-2 mb-3" />
-                    </div>
-
-                    <div class="flex flex-col">
-                      <label>Facebook</label>
-                      <input id="updateFacebook" type="text" class=" bg-gray-100 p-2 mt-2 mb-3  focus:outline-blue-300"/>
-                    </div>
-
-                    <div class="flex flex-col">
-                      <label>Instagram</label>
-                      <input id="updateInstagram" type="text" class=" bg-gray-100 p-2 mt-2 mb-3  focus:outline-blue-300"/>
-                    </div>
-
-                    <div class="flex flex-col">
-                      <label>Youtube</label>
-                      <input id="updateYoutube" type="text" class=" bg-gray-100 p-2 mt-2 mb-3  focus:outline-blue-300"/>
-                    </div>
-
-                    <div class="flex flex-col">
-                      <label>Linkedin</label>
-                      <input id="updateLinkedin" type="text" class=" bg-gray-100 p-2 mt-2 mb-3  focus:outline-blue-300"/>
-                    </div>
-
-                    <div class="flex flex-col">
-                      <label>Phone</label>
-                      <input id="updatePhone" type="text" class=" bg-gray-100 p-2 mt-2 mb-3  focus:outline-blue-300"/>
-                    </div>
-
-                    <div class="flex flex-col">
-                      <label>Email</label>
-                      <input id="updateEmail" type="text" class=" bg-gray-100 p-2 mt-2 mb-3  focus:outline-blue-300"/>
-                    </div>
-
-                    <div class="flex flex-col">
-                      <label>Adress</label>
-                      <input id="updateAdress" type="text" class=" bg-gray-100 p-2 mt-2 mb-3  focus:outline-blue-300"/>
-                    </div>
-
-                    <div class="flex flex-col">
-                      <label>Privacy Policy</label>
-                      <textarea name="" id="updatePrivacy" cols="10" rows="3"  class="border focus:outline-blue-300 p-3 mb-10"></textarea>
-                    </div>
-
-                    <div class="flex flex-col">
-                      <label>Terms and Conditions</label>
-                      <textarea name="" id="updateTerms" cols="10" rows="3"  class="border focus:outline-blue-300 p-3"></textarea>
-                    </div>
-                  </div>
-                  <div class="bg-gray-200 px-4 py-3 text-right">
-                    <button type="button" class="py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-700 mr-2" onclick="toggleModal()"><i class="fas fa-times"></i> Cancel</button>
-                    <button id="updateEventBtn" type="button" class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 mr-2"><i class="fas fa-plus"></i> Update</button>
-                  </div>
-                </div>
-              </div>
-              </div>
-            </div>
+            <table class="min-w-full">
+              <thead class="">
+                <tr class="">
+                  <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 dark:bg-background items-center flex font-medium text-gray-700 dark:text-gray-100 px-6 py-3 text-left">Location Name</th>
+                  <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 whitespace-nowrap dark:bg-background font-medium text-gray-700 dark:text-gray-100 px-6 py-3 text-left"> Image </th>
+                  <th scope="col" class="text-base bg-gray-100 border-b border-gray-200 dark:border-gray-900 whitespace-nowrap dark:bg-background font-medium text-gray-700 dark:text-gray-100 px-6 py-3 text-left"> Actions </th>
+                </tr>
+              </thead>
+              <tbody id="tbody">
+                
+              </tbody>
+            </table>
           </div> 
         </div>
       </section>
     </div>
-    <!-- script -->
-    <!-- <footer class="bg-gray-100 mt-auto lg:ml-64 ml-0 py-5 rounded-xl">
-	  Design & Developed with ❤️
-	  <a href="www.ui-lib.com" class="text-blue-500">@ui-lib</a>
-	</footer> -->
-    <!-- all script must be  -->
-    <script src="assets/js/others/plugins-core/handy-collapse.js"></script>
-    <script src="assets/js/others/plugins-script/handy-collapse.js"></script>
-    <script src="assets/js/others/plugins-core/perfect-scrollbar.js"></script>
-    <script src="assets/js/others/plugins-script/perfect-scrollbar.js"></script>
+>
+
   </main>
-  <script src="assets/js/others/plugins-core/alpine.min.js"></script>
+  <script src="assets/js/others/plugins-core/handy-collapse.js"></script>
+  <script src="assets/js/others/plugins-script/handy-collapse.js"></script>
+  <script src="assets/js/others/plugins-core/perfect-scrollbar.js"></script>
+  <script src="assets/js/others/plugins-script/perfect-scrollbar.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
   <!-- Firebase Storage -->
   <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-storage.js"></script>
+  <script src="assets/js/others/plugins-core/alpine.min.js"></script>
   <script src="assets/js/main.js"></script>
-  <script src="./js/allCompany.js"></script>
+  <script src="./js/allLocations.js"></script>
 </body>
 
 

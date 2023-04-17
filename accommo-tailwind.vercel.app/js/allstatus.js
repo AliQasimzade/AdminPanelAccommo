@@ -3,8 +3,31 @@ const image = document.getElementById("updateImage")
 const updateStatus = document.getElementById("updateStatus")
 let status = [];
 
+
+const userEmail = JSON.parse(sessionStorage.getItem('user'));
+if (userEmail) {
+    document.getElementById('userprofileimg').src = userEmail.image;
+    document.getElementById('useremail').innerHTML = userEmail.email
+    document.getElementById('profilepic').src = userEmail.image;
+    document.getElementById('nameuser').innerHTML = userEmail.name;
+    document.getElementById('emuser').innerHTML = userEmail.email;
+
+
+} else {
+    window.location.href = '/sign-in.html'
+}
+
+
+
+document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    alert("User logout")
+    sessionStorage.removeItem('user')
+    location.reload()
+
+})
+
 const getStatus = async()=>{
-    let req = await fetch("http://localhost:3001/api/status")
+    let req = await fetch("https://adminpanelback.onrender.com/api/status")
     let res = await req.json()
     status = [...res]
     console.log(status);
@@ -13,12 +36,10 @@ const getStatus = async()=>{
         tbody.innerHTML += 
         `
         <tr class="align-middle hover:bg-gray-50 dark:hover:bg-background">
-        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${item.sharedBy} </td>
+        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${item.sharedBy}</td>
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3"> 
             <img src= ${item.image} alt = ${item.sharedBy}  class="w-12 h-12">
         </td>
-        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${item.content} </td>
-
         
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-gray-300 px-6 py-3">
           <div class="flex items-center">
@@ -50,13 +71,23 @@ image.addEventListener('change', (e) => {
   // delete
 
   async function deleteElement(id){
-    console.log(id);
-    const request = await fetch(`http://localhost:3001/api/deletestatus/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-    },
 
-  })
-  location.reload()
+   try {
+    const request = await fetch(`https://adminpanelback.onrender.com/api/deletestatus/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+  
+    })
+    if(!request.ok) {
+      throw new Error("Request is failed !")
+    }else {
+      alert("Delete status successfully")
+      location.reload()
+    }
+   
+   }catch(err) {
+    alert(err.message)
+   }
 }

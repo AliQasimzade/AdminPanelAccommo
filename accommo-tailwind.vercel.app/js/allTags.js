@@ -1,21 +1,40 @@
 const tbody = document.getElementById("tbody")
 let tags = [];
 
-const getTags = async()=>{
-    let req = await fetch("http://localhost:3001/api/tags")
-    let res = await req.json()
-    tags = [...res]
-    console.log(tags);
 
-    tags.forEach(tag =>{
-        tbody.innerHTML += 
-        `
+const userEmail = JSON.parse(sessionStorage.getItem('user'));
+if (userEmail) {
+    document.getElementById('userprofileimg').src = userEmail.image;
+    document.getElementById('useremail').innerHTML = userEmail.email
+    document.getElementById('profilepic').src = userEmail.image;
+    document.getElementById('nameuser').innerHTML = userEmail.name;
+    document.getElementById('emuser').innerHTML = userEmail.email;
+
+
+} else {
+    window.location.href = '/sign-in.html'
+}
+
+
+
+document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    alert("User logout")
+    sessionStorage.removeItem('user')
+    location.reload()
+
+})
+
+const getTags = async () => {
+  let req = await fetch("https://adminpanelback.onrender.com/api/tags")
+  let res = await req.json()
+  tags = [...res]
+  console.log(tags);
+
+  tags.forEach(tag => {
+    tbody.innerHTML +=
+      `
         <tr class="align-middle hover:bg-gray-50 dark:hover:bg-background">
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${tag.name} </td>
-        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3"> 
-            <img src= ${tag.icon} alt = ${tag.name}  class="w-12 h-12">
-        </td>
-        
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-gray-300 px-6 py-3">
           <div class="flex items-center">
             <button type="button" onclick="toggleModal('${tag._id}')" class="border mr-2 border-gray-200 hover:bg-blue-500 dark:hover:border-blue-500 hover:text-white text-gray-700 dark:text-gray-300 dark:border-gray-800 rounded-full w-8 h-8 flex justify-center items-center">
@@ -31,79 +50,82 @@ const getTags = async()=>{
       </tr>
         
         `
-    })
+  })
 }
 getTags()
 
 let findId;
 let findTagById;
-let getIconUrl;
-icon.addEventListener('change', (e) => {
-    const reader = new FileReader()
-    reader.addEventListener('load', (e) => {
-        getIconUrl= reader.result;
-    });
-    reader.readAsDataURL(e.target.files[0]);
-    console.log(e.target.files);
-})
+
+
 
 function toggleModal(id) {
-    findId = id
-  
-    if (id) {
-        findTagById = tags.find( tag => tag._id === id)
-      if (findTagById) {
-          updateName.value = findTagById.name
-        //   updateIcon = findTagById.icon
-        //   iconu elave etmek lazimdi
-      }
+  findId = id
+
+  if (id) {
+    findTagById = tags.find(tag => tag._id === id)
+    if (findTagById) {
+      updateName.value = findTagById.name
     }
-    document.getElementById('modal').classList.toggle('hidden')
   }
+  document.getElementById('modal').classList.toggle('hidden')
+}
 //  update
-  const updateTag = async () => {
-    if (updateName.value == findTagById.name ) {
-      alert('Please update any input')
-    } else {
-      try {
-        const updateTagObj = {
-          name: updateName.value,
-        //  icon : updateIcon  elave etmek lazimdi
-        }
-        const request = await fetch(`http://localhost:3001/api/updatetag/${findId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(updateTagObj)
-        })
-  
-  
-        if (!request.ok) {
-          throw new Error('Request is failed')
-        } else {
-          const response = await request.json()
-          console.log(response);
-          location.reload()
-        }
-      }catch(err){
-          alert(err.message)
+const updateTag = async () => {
+  if (updateName.value == findTagById.name) {
+    alert('Please update any input')
+  } else if (updateName.value == '') {
+    alert('Please update any input')
+
+  } else {
+    try {
+      const updateTagObj = {
+        name: updateName.value,
       }
+      const request = await fetch(`https://adminpanelback.onrender.com/api/updatetag/${findId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updateTagObj)
+      })
+
+
+      if (!request.ok) {
+        throw new Error('Request is failed')
+      } else {
+        const response = await request.json()
+        alert("Updated tag successfully")
+        location.reload()
       }
-      document.getElementById('modal').classList.toggle('hidden')
+    } catch (err) {
+      alert(err.message)
+    }
   }
-  updateEventBtn.addEventListener('click', updateTag)
+  document.getElementById('modal').classList.toggle('hidden')
+}
+updateEventBtn.addEventListener('click', updateTag)
 
-  // delete
+// delete
 
-  async function deleteElement(id){
-    console.log(id);
-    const request = await fetch(`http://localhost:3001/api/deletetag/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-    },
+async function deleteElement(id) {
+  try {
 
-  })
-  location.reload()
+    const request = await fetch(`https://adminpanelback.onrender.com/api/deletetag/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+    })
+    if (!request.ok) {
+      throw new Error("Request is failed !")
+    } else {
+      alert("Delete tag successfully !")
+      location.reload()
+    }
+
+  } catch (err) {
+    alert(err.message)
+  }
 }

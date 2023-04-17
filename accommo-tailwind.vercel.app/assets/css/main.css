@@ -26,7 +26,9 @@ html, body {
 ::after {
   --tw-content: '';
 }
+
 /*
+
 1. Use a consistent sensible line-height in all browsers.
 2. Prevent adjustments of font size after orientation changes in iOS.
 3. Use a more readable tab size.
@@ -53,6 +55,12 @@ body {
 2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
 3. Ensure horizontal rules are visible by default.
 */
+.leaflet-pane{
+  z-index: 1 !important;
+}
+.leaflet-top, .leaflet-bottom{
+  z-index: 1;
+}
 hr {
   height: 0; /* 1 */
   color: inherit; /* 2 */
@@ -3420,6 +3428,7 @@ p {
 .dashboard-sidebar .active{
   --tw-text-opacity: 1;
   color: rgb(46 144 250 / var(--tw-text-opacity));
+  background-color: rgb(52 64 84 / var(--tw-bg-opacity));
 }
 .dashboard-sidebar .active a{
   --tw-bg-opacity: 1;

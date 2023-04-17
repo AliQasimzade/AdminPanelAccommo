@@ -1,11 +1,4 @@
-const name = document.getElementById("name")
-const image = document.getElementById("image")
-const icon = document.getElementById("icon")
-const submit = document.getElementById("submit")
-
-let getImageUrl = '';
-
-
+let getLocationImageUrl = '';
 const userEmail = JSON.parse(sessionStorage.getItem('user'));
 if (userEmail) {
     document.getElementById('userprofileimg').src = userEmail.image;
@@ -27,7 +20,6 @@ document.getElementById('logoutBtn').addEventListener('click', (e) => {
     location.reload()
 
 })
-
 const firebaseConfig = {
     apiKey: "AIzaSyCrjc7qRA9Z51nm_zJIB7FAXS9dmepEUk8",
     authDomain: "adminpanel-da8aa.firebaseapp.com",
@@ -41,9 +33,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 let storage = firebase.storage();
- 
-image.addEventListener('change', (e) => {
 
+locationImage.addEventListener('change', (e) => {
     let file = e.target.files[0]
     let storageRef = storage.ref();
     let imagesRef = storageRef.child('images/' + file.name);
@@ -61,47 +52,40 @@ image.addEventListener('change', (e) => {
         },
         function () {
             uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-                getImageUrl = downloadURL
+                getLocationImageUrl = downloadURL
             });
         }
     );
 
 })
 
-
-const createCategory =  async() =>{
+const createLocation = async () => {
     try {
-        if(name.value == '' || getImageUrl == '') {
+        if (getLocationImageUrl == '' || locationName.value == '') {
             alert('Please fill inputs or input !')
-        }else {
-            const newElement ={
-                name : name.value,
-                image : getImageUrl,
-                icon : icon.value
+        } else if (/^\s+$/.test(locationName.value)) {
+            alert('Please fill name input !')
+        } else {
+            const newLocation = {
+                name: locationName.value,
+                image: getLocationImageUrl
             }
-        
-            const req = await fetch("https://adminpanelback.onrender.com/api/createcategory" , {
-                method : "POST",
-                headers :{
-                    "Content-Type" : "application/json",
-                },
-                body: JSON.stringify(newElement)
-            
+            const req = await fetch('https://adminpanelback.onrender.com/api/createlocation', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newLocation)
             })
-            if(req.status !== 201) {
-                throw new Error("This category already exist")
-            }else {
-
-                const res = await req.json()
-                console.log(res);
-                alert("Create new category successfully !")
-                location.reload()
+            if (req.status !== 201) {
+                throw new Error('Request is failed');
+            } else {
+                const res = await req.json();
+                alert("Create new location was successfully !")
+                location.reload();
             }
-
         }
-      
-    }catch(err) {
-        alert(err.message)
+    } catch (err) {
+        alert(err.message);
     }
 }
-submit.addEventListener("click" , createCategory )
+
+submitLoc.addEventListener('click', createLocation)
