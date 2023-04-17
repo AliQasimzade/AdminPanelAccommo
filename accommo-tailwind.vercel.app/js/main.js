@@ -14,7 +14,6 @@ const linkedin = document.getElementById('linkedin')
 const youtube = document.getElementById('youtube');
 const twitter = document.getElementById('twitter')
 const whatsapp = document.getElementById('whatsapp')
-const dribble = document.getElementById('dribbble');
 const previousprice = document.getElementById('previousprice');
 const price = document.getElementById('price');
 let allTags;
@@ -43,54 +42,78 @@ const submitBtn = document.getElementById('submitBtn');
 const alltags = document.getElementById('alltags')
 const properties = document.getElementById('properties');
 
+
+const userEmail = JSON.parse(sessionStorage.getItem('user'));
+if (userEmail) {
+    document.getElementById('userprofileimg').src = userEmail.image;
+    document.getElementById('useremail').innerHTML = userEmail.email
+    document.getElementById('profilepic').src = userEmail.image;
+    document.getElementById('nameuser').innerHTML = userEmail.name;
+    document.getElementById('emuser').innerHTML = userEmail.email;
+
+
+} else {
+    window.location.href = '/sign-in.html'
+}
+
+
+
+document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    alert("User logout")
+    sessionStorage.removeItem('user')
+    location.reload()
+
+})
+
 let map;
 let marker;
 let long;
 let lat;
 navigator.geolocation.getCurrentPosition(position => {
-    let {latitude, longitude} = position.coords
-     long = longitude
-     lat = latitude
-     console.log(lat, long);
-     map = L.map('map').setView([latitude, longitude], 17);
+    let { latitude, longitude } = position.coords
+    long = longitude
+    lat = latitude
+    console.log(lat, long);
+    map = L.map('map').setView([latitude, longitude], 17);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);
- marker = L.marker([latitude,longitude]).addTo(map);
- var url = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + latitude + '&lon=' + longitude;
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    marker = L.marker([latitude, longitude]).addTo(map);
+    var url = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + latitude + '&lon=' + longitude;
     fetch(url)
         .then(response => response.json())
         .then(data => {
-           
+            console.log(data);
             city.innerHTML = data.address.state
             address.innerHTML = data.display_name
             locations.innerHTML = data.display_name.split(',')[0];
             marker.bindPopup(`${data.display_name}`).openPopup()
         });
-map.on('click', function(e) {
-    if(marker) {
-        map.removeLayer(marker)
-        console.log(e.latlng);
-        marker = L.marker(e.latlng).addTo(map)
-       
-        const latitude = e.latlng.lat
-        const longtitude = e.latlng.lng
-        long = e.latlng.lng
-        lat = e.latlng.lat
-        console.log(lat, long)
-        var url = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + latitude + '&lon=' + longitude;
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            city.innerHTML = data.address.state
-            address.innerHTML = data.display_name
-            locations.innerHTML = data.display_name.split(',')[0];
-            marker.bindPopup(`${data.display_name}`).openPopup()
-        });
-    }
-})
+    map.on('click', function (e) {
+        if (marker) {
+            map.removeLayer(marker)
+            console.log(e.latlng);
+            marker = L.marker(e.latlng).addTo(map)
+
+            const latitude = e.latlng.lat
+            const longtitude = e.latlng.lng
+            long = e.latlng.lng
+            lat = e.latlng.lat
+            console.log(lat, long)
+            var url = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + latitude + '&lon=' + longitude;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    city.innerHTML = data.address.state
+                    address.innerHTML = data.display_name
+                    locations.innerHTML = data.display_name.split(',')[0];
+                    marker.bindPopup(`${data.display_name}`).openPopup()
+                });
+        }
+    })
 })
 
 
@@ -102,12 +125,12 @@ const getAllCatAndTags = async () => {
 
         const data = await Promise.all(responses.map(response => response.json()));
 
-      data[0].forEach(cat => category.innerHTML += 
-        `
+        data[0].forEach(cat => category.innerHTML +=
+            `
         <option value="${cat.name}">${cat.name}</option>
         `)
 
-        data[1].forEach(tag => alltags.innerHTML += 
+        data[1].forEach(tag => alltags.innerHTML +=
             `
             <div class="mb-5 flex items-center">
             <input
@@ -119,13 +142,12 @@ const getAllCatAndTags = async () => {
             for="${tag.name}"
               class="text-sm flex text-gray-700 dark:text-gray-400 peer-checked:text-blue-500 dark:peer-checked:text-blue-500"
             >
-            <img src="${tag.image}" width="15px" height="15px" style="margin-right: 5px; object-fit: cover;"/>
           <span>${tag.name}</span>
             </label>
           </div>
             `)
 
-        data[2].forEach(feature => properties.innerHTML += 
+        data[2].forEach(feature => properties.innerHTML +=
             `
             <div class="mb-5 flex items-center">
             <input
@@ -137,13 +159,13 @@ const getAllCatAndTags = async () => {
             for="${feature.name}"
               class="text-sm flex text-gray-700 dark:text-gray-400 peer-checked:text-blue-500 dark:peer-checked:text-blue-500"
             >
-            <img src="${feature.icon}" width="15px" height="15px" style="margin-right: 5px;"/>
+            
             <span> ${feature.name}</span>
             </label>
           </div>
             `)
-    allTags = document.querySelectorAll('.check_tag')
-    allFeatures = document.querySelectorAll('.check_feature')
+        allTags = document.querySelectorAll('.check_tag')
+        allFeatures = document.querySelectorAll('.check_feature')
     } catch (error) {
         console.log(error.message);
     }
@@ -167,17 +189,17 @@ let storage = firebase.storage();
 
 
 let imageUrls = [];
-let profileImageUrl;
-let coverImageUrl;
+let profileImageUrl = '';
+let coverImageUrl = '';
 uploadImg.addEventListener('change', (e) => {
     const files = event.target.files;
     const uploadTasks = Array.from(files).map((file) => {
         let storageRef = storage.ref();
         let imagesRef = storageRef.child('images/' + file.name);
         return imagesRef.put(file)
-        .then((snapshot) => {
-            return snapshot.ref.getDownloadURL();
-          });
+            .then((snapshot) => {
+                return snapshot.ref.getDownloadURL();
+            });
     });
 
     Promise.all(uploadTasks)
@@ -243,91 +265,142 @@ coverimage.addEventListener('change', (e) => {
 })
 
 
-submitBtn.addEventListener('click', (e) => {
+submitBtn.addEventListener('click', async (e) => {
     e.preventDefault();
-    const tags = [...allTags].map(tag => {
-        if (tag.checked) {
-            return tag.nextElementSibling.children[1].innerHTML
-        }
-    }).filter(Boolean)
 
-    const features = [...allFeatures].map(tag => {
-        if (tag.checked) {
-            return tag.nextElementSibling.children[1].innerHTML
-        }
-    }).filter(Boolean)
-
-    const newListing = {
-        listingTitle: title.value,
-        address: address.innerHTML,
-        website: website.value,
-        type:typeValue.value,
-        twitter: twitter.value,
-        linkedin: linkedin.value,
-        facebook: facebook.value,
-        dribble: dribbble.value,
-        previousprice: Number(previousprice.value),
-        price: Number(price.value),
-        whatsapp: whatsapp.value,
-        phone:phone.value,
-        cityorstate: city.innerHTML,
-        email: email.value,
-        gallery: imageUrls,
-        uploadlink: uploadlink.value,
-        zipcode: Number(zipcode.value),
-        description: descriptions.value,
-        category: category.value,
-        profileImage: profileImageUrl,
-        splashscreen:coverImageUrl,
-        slogan:slogan.value,
-        roadorstate: locations.innerHTML,
-        locationCoords: {
-         latitude: lat,
-         longtitude: long
-        },
-        timeschedule: [
-            {
-                closingtime: startFriday.value,
-                openingTime: endFriday.value
-            },
-            {
-                closingtime: startMonday.value,
-                openingTime: endMonday.value
-            },
-            {
-                closingtime: startSaturday.value,
-                openingTime: endSaturday.value
-            },
-            {
-                closingtime: startThursday.value,
-                openingTime: endThursday.value
-            },
-            {
-                closingtime: startTuesday.value,
-                openingTime: endTuesday.value
-            },
-            {
-                closingtime: startWednesday.value,
-                openingTime: endWednesday.value
-            },
-            {
-                closingtime: startSunday.value,
-                openingTime: endSunday.value
+    try {
+        const tags = [...allTags].map(tag => {
+            if (tag.checked) {
+                return tag.nextElementSibling.children[0].innerHTML
             }
-        ],
-        tags,
-        features,
+        }).filter(Boolean)
+    
+        const features = [...allFeatures].map(tag => {
+            if (tag.checked) {
+                return tag.nextElementSibling.children[0].innerHTML
+            }
+        }).filter(Boolean)
+        console.log(tags,features)
+        if (tags.length == 0 ||
+            features.length == 0 ||
+            imageUrls.length == 0 ||
+            title.value == '' ||
+            address.innerHTML == '' ||
+            website.value == '' ||
+            whatsapp.value == '' ||
+            linkedin.value == '' ||
+            facebook.value == '' ||
+            previousprice.value == '' ||
+            price.value == '' ||
+            typeValue.value == '' ||
+            city.innerHTML == '' ||
+            phone.value == '' ||
+            twitter.value == '' ||
+            email.value == '' ||
+            uploadlink.value == '' ||
+            descriptions.value == '' ||
+            profileImageUrl == '' ||
+            coverImageUrl == '' ||
+            category.value == '' ||
+            locations.innerHTML == '' ||
+            slogan.value == '' ||
+            startMonday.value == '' ||
+            endMonday.value == '' ||
+            startTuesday.value == '' ||
+            endTuesday.value == '' ||
+            startWednesday.value == '' ||
+            endWednesday.value == '' ||
+            startThursday.value == '' ||
+            endThursday.value == '' ||
+            startFriday.value == '' ||
+            endFriday.value == '' ||
+            startSaturday.value == '' ||
+            endSaturday.value == '' ||
+            startSunday.value == '' ||
+            endSunday.value == ''
+        ) {
+            alert("Please fill inputs or input !")
+        } else {
+
+
+            const newListing = {
+                listingTitle: title.value,
+                address: address.innerHTML,
+                website: website.value,
+                type: typeValue.value,
+                twitter: twitter.value,
+                linkedin: linkedin.value,
+                facebook: facebook.value,
+                previousprice: Number(previousprice.value),
+                price: Number(price.value),
+                whatsapp: whatsapp.value,
+                phone: phone.value,
+                cityorstate: city.innerHTML,
+                email: email.value,
+                gallery: imageUrls,
+                uploadlink: uploadlink.value,
+                zipcode: Number(zipcode.value),
+                description: descriptions.value,
+                category: category.value,
+                profileImage: profileImageUrl,
+                splashscreen: coverImageUrl,
+                slogan: slogan.value,
+                roadorstate: locations.innerHTML,
+                locationCoords: {
+                    latitude: lat,
+                    longtitude: long
+                },
+                timeschedule: [
+                    {
+                        closingtime: startFriday.value,
+                        openingTime: endFriday.value
+                    },
+                    {
+                        closingtime: startMonday.value,
+                        openingTime: endMonday.value
+                    },
+                    {
+                        closingtime: startSaturday.value,
+                        openingTime: endSaturday.value
+                    },
+                    {
+                        closingtime: startThursday.value,
+                        openingTime: endThursday.value
+                    },
+                    {
+                        closingtime: startTuesday.value,
+                        openingTime: endTuesday.value
+                    },
+                    {
+                        closingtime: startWednesday.value,
+                        openingTime: endWednesday.value
+                    },
+                    {
+                        closingtime: startSunday.value,
+                        openingTime: endSunday.value
+                    }
+                ],
+                tags,
+                features,
+            }
+
+            const req = await fetch('https://adminpanelback.onrender.com/api/addnewlisting', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newListing)
+            })
+            if (!req.ok) {
+                throw new Error("Request is failed !")
+            } else {
+                const res = await req.json()
+                alert("Create new listing successfully !")
+                location.reload()
+            }
+        }
+    } catch (err) {
+        console.log(err.message);
     }
-
-    fetch('http://localhost:3001/api/addnewlisting', {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newListing)
-    })
-        .then(res => res.json())
-        .then(res => console.log(res))
-
 })
 

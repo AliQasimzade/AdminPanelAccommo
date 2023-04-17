@@ -1,16 +1,37 @@
 const tbody = document.getElementById("tbody")
 let categories = []
 const image = document.getElementById("updateImage")
-const icon = document.getElementById("updateIcon")
 
-const  getCategories = async ()=>{
-    let req = await fetch("https://adminpanelback.onrender.com/api/categories")
-    let res = await req.json()
-    categories = [...res]
-    console.log(categories);
-    categories.forEach(category =>{
-        tbody.innerHTML +=
-        `
+const userEmail = JSON.parse(sessionStorage.getItem('user'));
+if (userEmail) {
+    document.getElementById('userprofileimg').src = userEmail.image;
+    document.getElementById('useremail').innerHTML = userEmail.email
+    document.getElementById('profilepic').src = userEmail.image;
+    document.getElementById('nameuser').innerHTML = userEmail.name;
+    document.getElementById('emuser').innerHTML = userEmail.email;
+
+
+} else {
+    window.location.href = '/sign-in.html'
+}
+
+
+
+document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    alert("User logout")
+    sessionStorage.removeItem('user')
+    location.reload()
+
+})
+
+const getCategories = async () => {
+  let req = await fetch("https://adminpanelback.onrender.com/api/categories")
+  let res = await req.json()
+  categories = [...res]
+
+  categories.forEach(category => {
+    tbody.innerHTML +=
+      `
         <tr class="align-middle hover:bg-gray-50 dark:hover:bg-background">
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${category.name} </td>
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3"> 
@@ -18,7 +39,7 @@ const  getCategories = async ()=>{
 
         </td>
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3"> 
-        <img src= ${category.icon} alt = ${category.name}  class="w-12 h-12">
+         ${category.icon}
 
         </td>
         </td>
@@ -37,15 +58,14 @@ const  getCategories = async ()=>{
       </tr>
         
         `
-    })
+  })
 
 }
 getCategories()
 
 let findId;
 let findCategoryById;
-let getImageUrl;
-let getIconUrl;
+let getImageUrl = '';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCrjc7qRA9Z51nm_zJIB7FAXS9dmepEUk8",
@@ -69,56 +89,40 @@ image.addEventListener('change', (e) => {
   let uploadTask = imagesRef.put(file);
 
   uploadTask.on('state_changed',
-      (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-      },
-      function (error) {
+    (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+    },
+    function (error) {
 
-          console.error('Upload failed:', error);
-      },
-      function () {
-          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-            console.log(downloadURL);
-              getImageUrl = downloadURL
-          });
-      }
+      console.error('Upload failed:', error);
+    },
+    function () {
+      uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+        console.log(downloadURL);
+        getImageUrl = downloadURL
+      });
+    }
   );
 })
 
-icon.addEventListener('change', (e) => {
-
-  let file = e.target.files[0]
-  let storageRef = storage.ref();
-  let imagesRef = storageRef.child('images/' + file.name);
-
-  let uploadTask = imagesRef.put(file);
-
-  uploadTask.on('state_changed',
-      (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-      },
-      function (error) {
-
-          console.error('Upload failed:', error);
-      },
-      function () {
-          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-            console.log(downloadURL);
-              getIconUrl = downloadURL
-          });
-      }
-  );
-})
 
 function toggleModal(id) {
   findId = id
 
   if (id) {
-    findCategoryById = categories.find( category => category._id === id)
+    findCategoryById = categories.find(category => category._id === id)
+    console.log(findCategoryById)
     if (findCategoryById) {
-        updateName.value = findCategoryById.name
+      updateName.value = findCategoryById.name
+      updateIcon.value = findCategoryById.icon
+      const blob = new Blob([findCategoryById.image], { type: 'image/*' });
+      const file = new File([blob], findCategoryById.image, { type: 'image/*' });
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(file);
+      let fileInput = document.getElementById('updateImage');
+      fileInput.files = dataTransfer.files;
+      getImageUrl = updateIcon.value.split(`\C:\\fakepath\\`)[1];
     }
   }
   document.getElementById('modal').classList.toggle('hidden')
@@ -127,14 +131,18 @@ function toggleModal(id) {
 
 const updateCategory = async () => {
 
-  if (updateName.value == findCategoryById.name && getImageUrl == findCategoryById.image && getIconUrl == findCategoryById.icon ) {
+  if (updateName.value === findCategoryById.name &&
+    getImageUrl === findCategoryById.image &&
+    updateIcon.value === findCategoryById.icon) {
     alert('Please update any input')
+  } else if (updateName.value == '' || updateIcon.value == '' || getImageUrl == '') {
+    alert("Please fill input or inputs !")
   } else {
     try {
       const updateCategoryObj = {
         name: updateName.value,
         image: getImageUrl,
-        icon:getIconUrl
+        icon: updateIcon.value
       }
       const request = await fetch(`https://adminpanelback.onrender.com/api/updatecategory/${findId}`, {
         method: "PUT",
@@ -149,31 +157,40 @@ const updateCategory = async () => {
         throw new Error('Request is failed')
       } else {
         const response = await request.json()
-        console.log(response);
+        alert("Updated category successfully !")
         location.reload()
       }
-    }catch(err){
-        alert(err.message)
+    } catch (err) {
+      alert(err.message)
     }
-    }
-    document.getElementById('modal').classList.toggle('hidden')
+  }
+  document.getElementById('modal').classList.toggle('hidden')
 }
 updateEventBtn.addEventListener('click', updateCategory)
- 
+
 
 // delete
-async function deleteElement(id){
+async function deleteElement(id) {
+  try {
     console.log(id);
     const request = await fetch(`https://adminpanelback.onrender.com/api/deletecategory/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-    },
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
 
-  })
-  location.reload()
+    })
+    if (!request.ok) {
+      throw new Error("Request is failed !")
+    } else {
+      alert("Delete category successfully !")
+      location.reload()
+    }
+
+  } catch (err) {
+    alert(err.message)
+  }
 }
 
 
 
- 

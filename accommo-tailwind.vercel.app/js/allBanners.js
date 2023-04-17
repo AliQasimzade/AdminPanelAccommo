@@ -1,14 +1,35 @@
 const tbody = document.getElementById("tbody")
 let banners = [];
 
-const getBanners = async()=>{
-    let req = await fetch("https://adminpanelback.onrender.com/api/banners")
-    let res = await req.json()
-    banners = [...res]
+const userEmail = JSON.parse(sessionStorage.getItem('user'));
+if (userEmail) {
+    document.getElementById('userprofileimg').src = userEmail.image;
+    document.getElementById('useremail').innerHTML = userEmail.email
+    document.getElementById('profilepic').src = userEmail.image;
+    document.getElementById('nameuser').innerHTML = userEmail.name;
+    document.getElementById('emuser').innerHTML = userEmail.email;
 
-    banners.forEach(banner =>{
-        tbody.innerHTML += 
-        `
+
+} else {
+    window.location.href = '/sign-in.html'
+}
+
+
+
+document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    alert("User logout")
+    sessionStorage.removeItem('user')
+    location.reload()
+
+})
+const getBanners = async () => {
+  let req = await fetch("https://adminpanelback.onrender.com/api/banners")
+  let res = await req.json()
+  banners = [...res]
+
+  banners.forEach(banner => {
+    tbody.innerHTML +=
+      `
         <tr class="align-middle hover:bg-gray-50 dark:hover:bg-background">
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3"> 
             <img src= ${banner.image} alt = "banner_image"  class="w-12 h-12">
@@ -29,7 +50,7 @@ const getBanners = async()=>{
       </tr>
         
         `
-    })
+  })
 }
 getBanners()
 
@@ -58,78 +79,96 @@ updateIcon.addEventListener('change', (e) => {
   let uploadTask = imagesRef.put(file);
 
   uploadTask.on('state_changed',
-      (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-      },
-      function (error) {
+    (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+    },
+    function (error) {
 
-          console.error('Upload failed:', error);
-      },
-      function () {
-          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-              getIconUrl = downloadURL
-          });
-      }
+      console.error('Upload failed:', error);
+    },
+    function () {
+      uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+        getIconUrl = downloadURL
+      });
+    }
   );
 })
 
 function toggleModal(id) {
-    findId = id
-  
-    if (id) {
-        findBannerById = banners.find( banner => banner._id === id)
-      if (findBannerById) {
-        //   updateIcon = findBannerById.icon
-        //   iconu elave etmek lazimdi
-      }
+  findId = id
+
+  if (id) {
+    findBannerById = banners.find(banner => banner._id === id)
+    if (findBannerById) {
+      const blob = new Blob([findBannerById.image], { type: 'image/*' });
+      const file = new File([blob], findBannerById.image, { type: 'image/*' });
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(file);
+      let fileInput = document.getElementById('updateIcon');
+      fileInput.files = dataTransfer.files;
+      getIconUrl = updateIcon.value.split(`\C:\\fakepath\\`)[1];
+      console.log(getIconUrl)
     }
-    document.getElementById('modal').classList.toggle('hidden')
   }
+  document.getElementById('modal').classList.toggle('hidden')
+}
 //  update
-  const updateBanner = async () => {
-    //iconu yoxlamag lazimdi
-    if (getIconUrl == findBannerById.image ) {
-      alert('Please update any input')
-    } else {
-      try {
-        const updateBannerObj = {
-          image: getIconUrl
-        }
-        const request = await fetch(`https://adminpanelback.onrender.com/api/updatebanner/${findId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(updateBannerObj)
-        })
-  
-  
-        if (!request.ok) {
-          throw new Error('Request is failed')
-        } else {
-          const response = await request.json()
-          console.log(response);
-          location.reload()
-        }
-      }catch(err){
-          alert(err.message)
+const updateBanner = async () => {
+  //iconu yoxlamag lazimdi
+  if (getIconUrl == findBannerById.image) {
+    alert('Please update change banner image')
+  } else if (getIconUrl == '') {
+    alert("Please select image !")
+  } else {
+    try {
+      const updateBannerObj = {
+        image: getIconUrl
       }
+      const request = await fetch(`https://adminpanelback.onrender.com/api/updatebanner/${findId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updateBannerObj)
+      })
+
+
+      if (!request.ok) {
+        throw new Error('Request is failed')
+      } else {
+        const response = await request.json()
+        alert("Update banner image successfully !")
+        location.reload()
       }
-      document.getElementById('modal').classList.toggle('hidden')
+    } catch (err) {
+      alert(err.message)
+    }
   }
-  updateEventBtn.addEventListener('click', updateBanner)
+  document.getElementById('modal').classList.toggle('hidden')
+}
+updateEventBtn.addEventListener('click', updateBanner)
 
-  // delete
+// delete
 
-  async function deleteElement(id){
+async function deleteElement(id) {
+  try {
     console.log(id);
     const request = await fetch(`https://adminpanelback.onrender.com/api/deletebanner/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-    },
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
 
-  })
-  location.reload()
+    })
+    if (!request.ok) {
+      throw new Error("Request is failed !")
+    } else {
+      alert("Deleted successfully")
+      location.reload()
+    }
+
+  } catch (err) {
+    alert(err.message)
+  }
 }

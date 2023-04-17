@@ -1,15 +1,38 @@
 const tbody = document.getElementById("tbody")
 let companies = [];
 
-const getCompanies = async()=>{
-    let req = await fetch("https://adminpanelback.onrender.com/api/company")
-    let res = await req.json()
-    companies = [...res]
-    console.log(companies);
 
-    companies.forEach(company =>{
-        tbody.innerHTML += 
-        `
+const userEmail = JSON.parse(sessionStorage.getItem('user'));
+if (userEmail) {
+    document.getElementById('userprofileimg').src = userEmail.image;
+    document.getElementById('useremail').innerHTML = userEmail.email
+    document.getElementById('profilepic').src = userEmail.image;
+    document.getElementById('nameuser').innerHTML = userEmail.name;
+    document.getElementById('emuser').innerHTML = userEmail.email;
+
+
+} else {
+    window.location.href = '/sign-in.html'
+}
+
+
+
+document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    alert("User logout")
+    sessionStorage.removeItem('user')
+    location.reload()
+
+})
+
+const getCompanies = async () => {
+  let req = await fetch("https://adminpanelback.onrender.com/api/company")
+  let res = await req.json()
+  companies = [...res]
+  console.log(companies);
+
+  companies.forEach(company => {
+    tbody.innerHTML +=
+      `
         <tr class="align-middle hover:bg-gray-50 dark:hover:bg-background">
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3"> 
             <img src= ${company.icon}  class="w-12 h-12">
@@ -17,10 +40,10 @@ const getCompanies = async()=>{
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3"> 
             <img src= ${company.splashScreen} class="w-12 h-12">
         </td>
-        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.socialLinks[0]} </td>
-        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.socialLinks[1]} </td>
-        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.socialLinks[2]} </td>
-        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.socialLinks[3]} </td>
+        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.socialLinks[0].link} </td>
+        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.socialLinks[1].link} </td>
+        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.socialLinks[2].link} </td>
+        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.socialLinks[3].link} </td>
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.phone}</td>
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.email}</td>
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${company.address}</td>
@@ -42,7 +65,7 @@ const getCompanies = async()=>{
       </tr>
         
         `
-    })
+  })
 }
 getCompanies()
 
@@ -71,19 +94,19 @@ updateIcon.addEventListener('change', (e) => {
   let uploadTask = imagesRef.put(file);
 
   uploadTask.on('state_changed',
-      (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-      },
-      function (error) {
+    (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+    },
+    function (error) {
 
-          console.error('Upload failed:', error);
-      },
-      function () {
-          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-              getIconUrl = downloadURL
-          });
-      }
+      console.error('Upload failed:', error);
+    },
+    function () {
+      uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+        getIconUrl = downloadURL
+      });
+    }
   );
 })
 
@@ -95,102 +118,167 @@ updateImage.addEventListener('change', (e) => {
   let uploadTask = imagesRef.put(file);
 
   uploadTask.on('state_changed',
-      (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-      },
-      function (error) {
+    (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+    },
+    function (error) {
 
-          console.error('Upload failed:', error);
-      },
-      function () {
-          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-              getImageUrl = downloadURL
-          });
-      }
+      console.error('Upload failed:', error);
+    },
+    function () {
+      uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+        getImageUrl = downloadURL
+      });
+    }
   );
 })
 
 function toggleModal(id) {
-    findId = id
-  
-    if (id) {
-        findCompanyById = companies.find( company => company._id === id)
-      if (findCompanyById) {
-        updateFacebook.value = findCompanyById.socialLinks[0]
-        updateInstagram.value = findCompanyById.socialLinks[1]
-        updateYoutube.value = findCompanyById.socialLinks[2]
-        updateLinkedin.value = findCompanyById.socialLinks[3]
-        updatePhone.value = findCompanyById.phone
-        updateEmail.value = findCompanyById.email
-        updateAdress.value = findCompanyById.address
-        updatePrivacy.value = findCompanyById.privacyPolicy
-        updateTerms.value = findCompanyById.termsAndConditions
-      }
+  findId = id
+
+  if (id) {
+    findCompanyById = companies.find(company => company._id === id)
+    if (findCompanyById) {
+      updateFacebook.value = findCompanyById.socialLinks[0].link
+      updateInstagram.value = findCompanyById.socialLinks[1].link
+      updateYoutube.value = findCompanyById.socialLinks[2].link
+      updateLinkedin.value = findCompanyById.socialLinks[3].link
+      updatePhone.value = findCompanyById.phone
+      updateEmail.value = findCompanyById.email
+      updateAdress.value = findCompanyById.address
+      updatePrivacy.value = findCompanyById.privacyPolicy
+      updateTerms.value = findCompanyById.termsAndConditions
+      const blob1 = new Blob([findCompanyById.icon], { type: 'image/*' });
+      const file1 = new File([blob1], findCompanyById.icon, { type: 'image/*' });
+      const blob2 = new Blob([findCompanyById.splashScreen], { type: 'image/*' });
+      const file2 = new File([blob2], findCompanyById.splashScreen, { type: 'image/*' });
+      const dataTransfer1 = new DataTransfer();
+      const dataTransfer2 = new DataTransfer();
+      dataTransfer1.items.add(file1);
+      dataTransfer2.items.add(file2);
+
+      let fileInput1 = document.getElementById('updateIcon');
+      let fileInput2 = document.getElementById('updateImage');
+
+      fileInput1.files = dataTransfer1.files;
+      fileInput2.files = dataTransfer2.files;
+      getImageUrl = updateImage.value.split(`\C:\\fakepath\\`)[1];
+      getIconUrl = updateIcon.value.split(`\C:\\fakepath\\`)[1];
+      console.log(getIconUrl, getImageUrl)
     }
-    document.getElementById('modal').classList.toggle('hidden')
   }
+  document.getElementById('modal').classList.toggle('hidden')
+}
 //  update
-  const updateCompany = async () => {
-    if ( 
-        updateFacebook.value == findCompanyById.socialLinks[0] &&
-        updateInstagram.value == findCompanyById.socialLinks[1] &&
-        updateYoutube.value == findCompanyById.socialLinks[2] &&
-        updateLinkedin.value == findCompanyById.socialLinks[3] &&
-        updatePhone.value == findCompanyById.phone &&
-        updateEmail.value == findCompanyById.email &&
-        updateAdress.value == findCompanyById.address &&
-        updatePrivacy.value == findCompanyById.privacyPolicy &&
-        updateTerms.value == findCompanyById.termsAndConditions
-        ) {
-      alert('Please update any input')
-    } else {
-      try {
-        const updateCompanyObj = {
-            // icon ve sekil gelemlidii
-            icon: getIconUrl,
-            splashScreen: getImageUrl,
-            email : updateEmail.value,
-            phone : updatePhone.value,
-            termsAndConditions : updateTerms.value,
-            privacyPolicy : updatePrivacy.value,
-            address : updateAdress.value,
-            socialLinks :[updateFacebook.value , updateLinkedin.value,updateInstagram.value,updateYoutube.value]
-        }
-        const request = await fetch(`https://adminpanelback.onrender.com/api/updatecompany/${findId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
+const updateCompany = async () => {
+  if (
+    updateFacebook.value == findCompanyById.socialLinks[0].link &&
+    updateInstagram.value == findCompanyById.socialLinks[1].link &&
+    updateYoutube.value == findCompanyById.socialLinks[2].link &&
+    updateLinkedin.value == findCompanyById.socialLinks[3].link &&
+    updatePhone.value == findCompanyById.phone &&
+    updateEmail.value == findCompanyById.email &&
+    updateAdress.value == findCompanyById.address &&
+    updatePrivacy.value == findCompanyById.privacyPolicy &&
+    updateTerms.value == findCompanyById.termsAndConditions &&
+    getIconUrl == findCompanyById.icon &&
+    getImageUrl == findCompanyById.splashScreen
+  ) {
+    alert('Please update any input')
+  } else if (updateFacebook.value == '' ||
+    updateInstagram.value == '' ||
+    updateYoutube.value == '' ||
+    updateLinkedin.value == '' ||
+    updatePhone.value == '' ||
+    updateEmail.value == '' ||
+    updateAdress.value == '' ||
+    updatePrivacy.value == '' ||
+    updateTerms.value == '' ||
+    getIconUrl == '' ||
+    getImageUrl == ''
+
+  ) {
+    alert("Please fill input or inputs !")
+  } else {
+    try {
+      const updateCompanyObj = {
+
+        icon: getIconUrl,
+        splashScreen: getImageUrl,
+        email: updateEmail.value,
+        phone: updatePhone.value,
+        termsAndConditions: updateTerms.value,
+        privacyPolicy: updatePrivacy.value,
+        address: updateAdress.value,
+        socialLinks: [
+          {
+            name: "facebook",
+            link: updateFacebook.value,
+            color: "#4267B2"
           },
-          body: JSON.stringify(updateCompanyObj)
-        })
-  
-  
-        if (!request.ok) {
-          throw new Error('Request is failed')
-        } else {
-          const response = await request.json()
-          console.log(response);
-          location.reload()
-        }
-      }catch(err){
-          alert(err.message)
+          {
+            name: "instagram",
+            link: updateInstagram.value,
+            color: "#C13584"
+          },
+          {
+            name: "linkedin",
+            link: updateLinkedin.value,
+            color: "#0078c7"
+          },
+          {
+            name: "youtube",
+            link: updateYoutube.value,
+            color: "#FF0000"
+          }
+        ]
       }
+      const request = await fetch(`https://adminpanelback.onrender.com/api/updatecompany/${findId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updateCompanyObj)
+      })
+
+
+      if (!request.ok) {
+        throw new Error('Request is failed')
+      } else {
+        const response = await request.json()
+        alert("Updated company successfully !")
+        location.reload()
       }
-      document.getElementById('modal').classList.toggle('hidden')
+    } catch (err) {
+      alert(err.message)
+    }
   }
-  updateEventBtn.addEventListener('click', updateCompany)
+  document.getElementById('modal').classList.toggle('hidden')
+}
+updateEventBtn.addEventListener('click', updateCompany)
 
-  // delete
+// delete
 
-  async function deleteElement(id){
+async function deleteElement(id) {
+  try {
     console.log(id);
     const request = await fetch(`https://adminpanelback.onrender.com/api/deletecompany/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-    },
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
 
-  })
-  location.reload()
+    })
+    if (!request.ok) {
+      throw new Error("Request is failed")
+    } else {
+      const res = await request.json()
+      alert("Delete company successfully")
+      location.reload()
+    }
+
+  } catch (err) {
+    alert(err.message)
+  }
 }

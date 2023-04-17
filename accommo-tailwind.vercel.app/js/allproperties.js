@@ -1,5 +1,29 @@
 const tbody = document.getElementById("tbody")
+
 let properties = [];
+
+
+const userEmail = JSON.parse(sessionStorage.getItem('user'));
+if (userEmail) {
+    document.getElementById('userprofileimg').src = userEmail.image;
+    document.getElementById('useremail').innerHTML = userEmail.email
+    document.getElementById('profilepic').src = userEmail.image;
+    document.getElementById('nameuser').innerHTML = userEmail.name;
+    document.getElementById('emuser').innerHTML = userEmail.email;
+
+
+} else {
+    window.location.href = '/sign-in.html'
+}
+
+
+
+document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    alert("User logout")
+    sessionStorage.removeItem('user')
+    location.reload()
+
+})
 
 const getProperties = async()=>{
     let req = await fetch("https://adminpanelback.onrender.com/api/properties")
@@ -13,7 +37,7 @@ const getProperties = async()=>{
         <tr class="align-middle hover:bg-gray-50 dark:hover:bg-background">
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${property.name} </td>
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3"> 
-            <img src= ${property.icon} alt = ${property.name}  class="w-12 h-12">
+           ${property.icon}
         </td>
         
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-gray-300 px-6 py-3">
@@ -37,44 +61,8 @@ getProperties()
 
 let findId;
 let findPropertyById;
-let getIconUrl;
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCrjc7qRA9Z51nm_zJIB7FAXS9dmepEUk8",
-  authDomain: "adminpanel-da8aa.firebaseapp.com",
-  databaseURL: "https://adminpanel-da8aa-default-rtdb.firebaseio.com",
-  projectId: "adminpanel-da8aa",
-  storageBucket: "adminpanel-da8aa.appspot.com",
-  messagingSenderId: "381842069412",
-  appId: "1:381842069412:web:850d704de6d0cd10245331"
-};
-
-firebase.initializeApp(firebaseConfig);
-
-let storage = firebase.storage();
-updateIcon.addEventListener('change', (e) => {
-  let file = e.target.files[0]
-  let storageRef = storage.ref();
-  let imagesRef = storageRef.child('images/' + file.name);
-
-  let uploadTask = imagesRef.put(file);
-
-  uploadTask.on('state_changed',
-      (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-      },
-      function (error) {
-
-          console.error('Upload failed:', error);
-      },
-      function () {
-          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-              getIconUrl = downloadURL
-          });
-      }
-  );
-})
+const pattern =  /^[a-zA-Z0-9]+$/;
 
 function toggleModal(id) {
     findId = id
@@ -83,20 +71,24 @@ function toggleModal(id) {
         findPropertyById = properties.find( property => property._id === id)
       if (findPropertyById) {
           updateName.value = findPropertyById.name
+          updateFeatureIcon.value = findPropertyById.icon
       }
     }
     document.getElementById('modal').classList.toggle('hidden')
   }
 //  update
   const updateProperty = async () => {
-    console.log(findId);
-    if (updateName.value == findPropertyById.name && getIconUrl == findPropertyById.icon ) {
+    if (updateName.value == findPropertyById.name && updateFeatureIcon.value == findPropertyById.icon ) {
       alert('Please update any input')
+    }else if(updateName.value == '' || updateFeatureIcon.value == '') {
+      alert("Please fill input or inputs")
+    }else if(pattern.test(updateName.value) != true) {
+      alert("Please fill input or inputs")
     } else {
       try {
         const updatePropertyObj = {
           name: updateName.value,
-          icon:getIconUrl
+          icon:updateFeatureIcon.value
         }
         const request = await fetch(`https://adminpanelback.onrender.com/api/updateproperty/${findId}`, {
           method: "PUT",
@@ -112,6 +104,7 @@ function toggleModal(id) {
         } else {
           const response = await request.json()
           console.log(response);
+          alert("Updated succesfully !")
           location.reload()
         }
       }catch(err){
@@ -125,7 +118,8 @@ function toggleModal(id) {
   // delete
 
   async function deleteElement(id){
-    console.log(id);
+    try {
+      console.log(id);
     const request = await fetch(`https://adminpanelback.onrender.com/api/deleteProperty/${id}`, {
     method: "DELETE",
     headers: {
@@ -133,5 +127,15 @@ function toggleModal(id) {
     },
 
   })
-  location.reload()
+
+  if(!request.ok) {
+    throw new Error("Request is failed !")
+  }else {
+    alert("Delete feature successfully !")
+    location.reload()
+  }
+ 
+    }catch(err) {
+      alert(err.message)
+    }
 }

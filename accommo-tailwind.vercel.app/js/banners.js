@@ -1,7 +1,30 @@
 const icon = document.getElementById("icon")
 const submit = document.getElementById("submit")
 
-let getImageUrl;
+let getImageUrl = '';
+
+
+const userEmail = JSON.parse(sessionStorage.getItem('user'));
+if (userEmail) {
+    document.getElementById('userprofileimg').src = userEmail.image;
+    document.getElementById('useremail').innerHTML = userEmail.email
+    document.getElementById('profilepic').src = userEmail.image;
+    document.getElementById('nameuser').innerHTML = userEmail.name;
+    document.getElementById('emuser').innerHTML = userEmail.email;
+
+
+} else {
+    window.location.href = '/sign-in.html'
+}
+
+
+
+document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    alert("User logout")
+    sessionStorage.removeItem('user')
+    location.reload()
+
+})
 
 const firebaseConfig = {
     apiKey: "AIzaSyCrjc7qRA9Z51nm_zJIB7FAXS9dmepEUk8",
@@ -41,20 +64,34 @@ icon.addEventListener('change', (e) => {
 
 })
 const createBanner = async()=>{
-    const newElement ={
-        image: getImageUrl
-    }
-    const req = await fetch("https://adminpanelback.onrender.com/api/createbanner" , {
-        method : "POST",
-        headers :{
-            "Content-Type" : "application/json",
-        },
-        body: JSON.stringify(newElement)
-    
-    })
+    try {
+        if(getImageUrl == ''){
+            alert('Please select image !')
+        }else {
+            const newElement ={
+                image: getImageUrl
+            }
+            const req = await fetch("https://adminpanelback.onrender.com/api/createbanner" , {
+                method : "POST",
+                headers :{
+                    "Content-Type" : "application/json",
+                },
+                body: JSON.stringify(newElement)
+            
+            })
+            if(!req.ok) {
+                throw new Error("Request is failed !")
+            }else {
 
-    const res = await req.json()
-    console.log(res);
-    location.reload()
+                const res = await req.json()
+                alert("Create new banner added successfully")
+                location.reload()
+            }
+        
+        }
+      
+    }catch(err) {
+     alert(err.message)
+    }
 }
 submit.addEventListener("click" , createBanner )

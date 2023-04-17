@@ -1,21 +1,40 @@
 const tbody = document.getElementById("tbody")
 let tags = [];
 
-const getTags = async()=>{
-    let req = await fetch("https://adminpanelback.onrender.com/api/tags")
-    let res = await req.json()
-    tags = [...res]
-    console.log(tags);
 
-    tags.forEach(tag =>{
-        tbody.innerHTML += 
-        `
+const userEmail = JSON.parse(sessionStorage.getItem('user'));
+if (userEmail) {
+    document.getElementById('userprofileimg').src = userEmail.image;
+    document.getElementById('useremail').innerHTML = userEmail.email
+    document.getElementById('profilepic').src = userEmail.image;
+    document.getElementById('nameuser').innerHTML = userEmail.name;
+    document.getElementById('emuser').innerHTML = userEmail.email;
+
+
+} else {
+    window.location.href = '/sign-in.html'
+}
+
+
+
+document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    alert("User logout")
+    sessionStorage.removeItem('user')
+    location.reload()
+
+})
+
+const getTags = async () => {
+  let req = await fetch("https://adminpanelback.onrender.com/api/tags")
+  let res = await req.json()
+  tags = [...res]
+  console.log(tags);
+
+  tags.forEach(tag => {
+    tbody.innerHTML +=
+      `
         <tr class="align-middle hover:bg-gray-50 dark:hover:bg-background">
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3">${tag.name} </td>
-        <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-regular text-gray-500 dark:text-gray-300 px-6 py-3"> 
-            <img src= ${tag.icon} alt = ${tag.name}  class="w-12 h-12">
-        </td>
-        
         <td class="border-b border-gray-200 dark:border-gray-900 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-gray-300 px-6 py-3">
           <div class="flex items-center">
             <button type="button" onclick="toggleModal('${tag._id}')" class="border mr-2 border-gray-200 hover:bg-blue-500 dark:hover:border-blue-500 hover:text-white text-gray-700 dark:text-gray-300 dark:border-gray-800 rounded-full w-8 h-8 flex justify-center items-center">
@@ -31,109 +50,82 @@ const getTags = async()=>{
       </tr>
         
         `
-    })
+  })
 }
 getTags()
 
 let findId;
 let findTagById;
-let getIconUrl;
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCrjc7qRA9Z51nm_zJIB7FAXS9dmepEUk8",
-  authDomain: "adminpanel-da8aa.firebaseapp.com",
-  databaseURL: "https://adminpanel-da8aa-default-rtdb.firebaseio.com",
-  projectId: "adminpanel-da8aa",
-  storageBucket: "adminpanel-da8aa.appspot.com",
-  messagingSenderId: "381842069412",
-  appId: "1:381842069412:web:850d704de6d0cd10245331"
-};
-
-firebase.initializeApp(firebaseConfig);
-
-let storage = firebase.storage();
-updateIcon.addEventListener('change', (e) => {
-  let file = e.target.files[0]
-  let storageRef = storage.ref();
-  let imagesRef = storageRef.child('images/' + file.name);
-
-  let uploadTask = imagesRef.put(file);
-
-  uploadTask.on('state_changed',
-      (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-      },
-      function (error) {
-
-          console.error('Upload failed:', error);
-      },
-      function () {
-          uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-              getIconUrl = downloadURL
-          });
-      }
-  );
-})
 
 function toggleModal(id) {
-    findId = id
-  
-    if (id) {
-        findTagById = tags.find( tag => tag._id === id)
-      if (findTagById) {
-          updateName.value = findTagById.name
-        //   updateIcon = findTagById.icon
-        //   iconu elave etmek lazimdi
-      }
+  findId = id
+
+  if (id) {
+    findTagById = tags.find(tag => tag._id === id)
+    if (findTagById) {
+      updateName.value = findTagById.name
     }
-    document.getElementById('modal').classList.toggle('hidden')
   }
+  document.getElementById('modal').classList.toggle('hidden')
+}
 //  update
-  const updateTag = async () => {
-    if (updateName.value == findTagById.name && getIconUrl == findTagById.icon ) {
-      alert('Please update any input')
-    } else {
-      try {
-        const updateTagObj = {
-          name: updateName.value,
-          icon: getIconUrl
-        }
-        const request = await fetch(`https://adminpanelback.onrender.com/api/updatetag/${findId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(updateTagObj)
-        })
-  
-  
-        if (!request.ok) {
-          throw new Error('Request is failed')
-        } else {
-          const response = await request.json()
-          console.log(response);
-          location.reload()
-        }
-      }catch(err){
-          alert(err.message)
+const updateTag = async () => {
+  if (updateName.value == findTagById.name) {
+    alert('Please update any input')
+  } else if (updateName.value == '') {
+    alert('Please update any input')
+
+  } else {
+    try {
+      const updateTagObj = {
+        name: updateName.value,
       }
+      const request = await fetch(`https://adminpanelback.onrender.com/api/updatetag/${findId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updateTagObj)
+      })
+
+
+      if (!request.ok) {
+        throw new Error('Request is failed')
+      } else {
+        const response = await request.json()
+        alert("Updated tag successfully")
+        location.reload()
       }
-      document.getElementById('modal').classList.toggle('hidden')
+    } catch (err) {
+      alert(err.message)
+    }
   }
-  updateEventBtn.addEventListener('click', updateTag)
+  document.getElementById('modal').classList.toggle('hidden')
+}
+updateEventBtn.addEventListener('click', updateTag)
 
-  // delete
+// delete
 
-  async function deleteElement(id){
-    console.log(id);
+async function deleteElement(id) {
+  try {
+
     const request = await fetch(`https://adminpanelback.onrender.com/api/deletetag/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-    },
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
 
-  })
-  location.reload()
+    })
+    if (!request.ok) {
+      throw new Error("Request is failed !")
+    } else {
+      alert("Delete tag successfully !")
+      location.reload()
+    }
+
+  } catch (err) {
+    alert(err.message)
+  }
 }

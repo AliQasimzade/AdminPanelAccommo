@@ -2,28 +2,70 @@ const content = document.getElementById("content")
 const status = document.getElementById("status")
 const icon = document.getElementById("icon")
 const submit = document.getElementById("submit")
+let userImage = '';
+
+
+const userEmail = JSON.parse(sessionStorage.getItem('user'));
+if (userEmail) {
+    document.getElementById('userprofileimg').src = userEmail.image;
+    document.getElementById('useremail').innerHTML = userEmail.email
+    document.getElementById('profilepic').src = userEmail.image;
+    document.getElementById('nameuser').innerHTML = userEmail.name;
+    document.getElementById('emuser').innerHTML = userEmail.email;
+
+
+} else {
+    window.location.href = '/sign-in.html'
+}
+
+
+
+document.getElementById('logoutBtn').addEventListener('click', (e) => {
+    alert("User logout")
+    sessionStorage.removeItem('user')
+    location.reload()
+
+})
 
 const getAllUsers = async () => {
     try {
-     const request = await fetch('https://adminpanelback.onrender.com/api/allusers')
-     if(!request.ok) {
-         throw new Error("Request is failed !")
-     }else {
-         const response = await request.json()
-         console.log(response);
-         response.forEach(res => status.innerHTML += 
-             `
+        const request = await fetch('https://adminpanelback.onrender.com/api/allusers')
+        if (!request.ok) {
+            throw new Error("Request is failed !")
+        } else {
+            const response = await request.json()
+            console.log(response);
+            userImage = response[0].image;
+            console.log(userImage);
+            response.forEach(res => status.innerHTML +=
+                `
                  <option value="${res.name}">${res.name}</option>
+                 
               `)
-     }
-    }catch(err) {
-   alert(err.message)
+        }
+    } catch (err) {
+        alert(err.message)
     }
- }
- 
- getAllUsers()
+}
 
-let getIconUrl
+getAllUsers()
+
+status.addEventListener('change', async (e) => {
+    try {
+        const req = await fetch(`https://adminpanelback.onrender.com/api/userid/${e.target.value}`)
+        if (!req.ok) {
+            throw new Error("Request is failed !")
+        } else {
+            const res = await req.json();
+            userImage = res.user.image
+            console.log(userImage);
+        }
+    } catch (err) {
+        alert(err.message)
+    }
+})
+
+let getIconUrl = ''
 const firebaseConfig = {
     apiKey: "AIzaSyCrjc7qRA9Z51nm_zJIB7FAXS9dmepEUk8",
     authDomain: "adminpanel-da8aa.firebaseapp.com",
@@ -38,7 +80,7 @@ firebase.initializeApp(firebaseConfig);
 
 let storage = firebase.storage();
 
-icon.addEventListener('change', (e) => {
+userimage.addEventListener('change', (e) => {
     let file = e.target.files[0]
     let storageRef = storage.ref();
     let imagesRef = storageRef.child('images/' + file.name);
@@ -63,29 +105,43 @@ icon.addEventListener('change', (e) => {
 
 })
 
-const createStatus = async ()=>{
-    const newStatus ={
-        content : content.value,
-        image : getIconUrl,
-        sharedBy : status.value,
-        userProfilePicture : "picture"
+const createStatus = async () => {
+    try {
+        if (getIconUrl == '') {
+            alert("Please select image")
+        } else {
+            const newStatus = {
+                image: getIconUrl,
+                sharedBy: status.value,
+                userProfilePicture: userImage
 
 
+            }
+            const req = await fetch("https://adminpanelback.onrender.com/api/createstatus", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newStatus)
+
+            })
+            if (!req.ok) {
+                throw new Error("Request is failed !")
+            } else {
+                const res = await req.json()
+                alert("Create status successfully")
+                location.reload()
+            }
+
+
+        }
+    }catch(err) {
+        alert(err.message)
     }
-    const req = await fetch("https://adminpanelback.onrender.com/api/createstatus" , {
-        method : "POST",
-        headers :{
-            "Content-Type" : "application/json",
-        },
-        body: JSON.stringify(newStatus)
-    
-    })
-
-    const res = await req.json()
-    console.log(res);
+   
 }
 
-submit.addEventListener("click" ,createStatus)
+submit.addEventListener("click", createStatus)
 
 
 
